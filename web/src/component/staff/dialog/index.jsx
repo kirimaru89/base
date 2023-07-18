@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
+import { useState, useEffect } from "react";
 import { t } from "ttag";
 import { Modal } from "antd";
 import Util from "service/helper/util";
@@ -7,17 +7,29 @@ import RequestUtil from "service/helper/request_util";
 import Form from "./form";
 import { urls, messages } from "../config";
 
+export class Service {
+    static get toggleEvent() {
+        return "TOGGLE_STAFF_DIALOG";
+    }
+
+    static toggle(open = true, id = 0) {
+        Util.event.dispatch(Service.toggleEvent, { open, id });
+    }
+}
+
 /**
  * StaffDialog.
  *
  * @param {Object} props
  * @param {function} props.onChange - (data: Dict, id: number) => void
  */
-const StaffDialog = forwardRef(({ onChange }, ref) => {
+export default function StaffDialog({ onChange }) {
     const [data, setData] = useState({});
     const [open, setOpen] = useState(false);
     const [id, setId] = useState(0);
-    const loadData = (id) => {
+
+    const handleToggle = ({ detail: { open, id } }) => {
+        if (!open) return setOpen(false);
         setId(id);
         if (id) {
             Util.toggleGlobalLoading();
@@ -32,25 +44,26 @@ const StaffDialog = forwardRef(({ onChange }, ref) => {
             setOpen(true);
         }
     };
-    useImperativeHandle(ref, () => ({ loadData }));
+
+    useEffect(() => {
+        Util.event.listen(Service.toggleEvent, handleToggle);
+        return () => {
+            Util.event.remove(Service.toggleEvent, handleToggle);
+        };
+    }, []);
+
     return (
         <Modal
+            keyboard={false}
+            maskClosable={false}
             destroyOnClose
             open={open}
-            okButtonProps={{
-                form: Form.formName,
-                key: "submit",
-                htmlType: "submit",
-            }}
+            okButtonProps={{ form: Form.formName, key: "submit", htmlType: "submit" }}
             okText={t`Save`}
-            onCancel={() => setOpen(false)}
+            onCancel={() => Service.toggle(false)}
             cancelText={t`Cancel`}
-            width={800}
-            title={
-                <span style={{ fontWeight: 700, lineHeight: 1.75 }}>
-                    {Util.getDialogTitle(id, messages)}
-                </span>
-            }
+            width={1024}
+            title={Util.getDialogTitle(id, messages)}
         >
             <Form
                 data={data}
@@ -61,7 +74,7 @@ const StaffDialog = forwardRef(({ onChange }, ref) => {
             />
         </Modal>
     );
-});
+}
 
 StaffDialog.displayName = "StaffDialog";
-export default StaffDialog;
+StaffDialog.toggle = Service.toggle;

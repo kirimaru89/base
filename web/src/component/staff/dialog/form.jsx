@@ -1,14 +1,14 @@
 import * as React from "react";
-import Util from "service/helper/util";
+import { useRef, useEffect } from "react";
 import { useRecoilValue } from "recoil";
-import { Form, Radio, Typography, notification } from "antd";
+import { Form, Input } from "antd";
+import Util from "service/helper/util";
 import FormUtil from "service/helper/form_util";
 import SelectInput from "component/common/form/ant/input/select_input.jsx";
-import DateInput from "component/common/form/ant/input/date_input.jsx";
-import Input from "component/common/form/ant/input";
+import CheckInput from "component/common/form/ant/input/check_input.jsx";
 import { urls, labels, emptyRecord } from "../config";
 import { staffOptionsSt } from "../states";
-const { Title, Text } = Typography;
+
 /**
  * @callback FormCallback
  *
@@ -27,6 +27,7 @@ const formName = "StaffForm";
  * @param {Object} props.formRef
  */
 export default function StaffForm({ data, onChange }) {
+    const inputRef = useRef(null);
     const [form] = Form.useForm();
     const staffOptions = useRecoilValue(staffOptionsSt);
 
@@ -36,173 +37,73 @@ export default function StaffForm({ data, onChange }) {
     const method = id ? "put" : "post";
 
     const formAttrs = {
-        full_name: {
-            name: "full_name",
-            label: labels.full_name,
-            rules: [FormUtil.ruleRequired()],
-        },
         email: {
             name: "email",
             label: labels.email,
-            rules: [FormUtil.ruleRequired()],
+            rules: [FormUtil.ruleRequired()]
         },
         phone_number: {
             name: "phone_number",
-            label: labels.phone_number,
-            rules: [FormUtil.ruleRequired()],
+            label: labels.phone_number
         },
-        identity_number: {
-            name: "identity_number",
-            label: labels.identity_number,
+        last_name: {
+            name: "last_name",
+            label: labels.last_name,
+            rules: [FormUtil.ruleRequired()]
         },
-        issue_date: {
-            name: "issue_date",
-            label: labels.issue_date,
+        first_name: {
+            name: "first_name",
+            label: labels.first_name,
+            rules: [FormUtil.ruleRequired()]
         },
-        issue_place: {
-            name: "issue_place",
-            label: labels.issue_place,
+        groups: {
+            name: "groups",
+            label: labels.groups
         },
-        date_of_birth: {
-            name: "date_of_birth",
-            label: labels.date_of_birth,
-        },
-        gender: {
-            name: "gender",
-            label: labels.gender,
-        },
-        participated_place_id: {
-            name: "participated_place_id",
-            label: labels.participated_place_id,
-        },
-        place_of_residence: {
-            name: "place_of_residence",
-            label: labels.place_of_residence,
-        },
-        ethnic_id: {
-            name: "ethnic_id",
-            label: labels.ethnic_id,
-        },
-        religion_id: {
-            name: "religion_id",
-            label: labels.religion_id,
-        },
-        occupation_id: {
-            name: "occupation_id",
-            label: labels.occupation_id,
-        },
-        position_id: {
-            name: "position_id",
-            label: labels.position_id,
-        },
-        joined_date: {
-            name: "joined_date",
-            label: labels.joined_date,
-        },
-        education_level_id: {
-            name: "education_level_id",
-            label: labels.education_level_id,
-        },
-        qualification_id: {
-            name: "qualification_id",
-            label: labels.qualification_id,
-        },
-        it_level: {
-            name: "it_level",
-            label: labels.it_level,
-        },
-        political_theory_level: {
-            name: "political_theory_level",
-            label: labels.political_theory_level,
-        },
+        is_active: {
+            name: "is_active",
+            label: labels.is_active
+        }
     };
+
+    useEffect(() => {
+        inputRef.current.focus({ cursor: "end" });
+    }, []);
 
     return (
         <Form
             form={form}
             name={formName}
-            labelCol={{ span: 6 }}
-            labelAlign="left"
-            wrapperCol={{ span: 18 }}
-            requiredmarkposition={"right"}
+            labelCol={{ span: 4 }}
+            wrapperCol={{ span: 20 }}
             initialValues={{ ...initialValues }}
-            onFinish={(payload) => {
-                notification.success({
-                    message: "Notification Title",
-                    description:
-                        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-                });
-                return FormUtil.submit(endPoint, payload, method)
+            onFinish={(payload) =>
+                FormUtil.submit(endPoint, payload, method)
                     .then((data) => onChange(data, id))
-                    .catch(FormUtil.setFormErrors(form));
-            }}
+                    .catch(FormUtil.setFormErrors(form))
+            }
         >
-            <Title level={5}>Thông tin cá nhân</Title>
-            <Form.Item {...formAttrs.full_name}>
-                <Input />
+            <Form.Item {...formAttrs.email}>
+                <Input ref={inputRef}/>
             </Form.Item>
             <Form.Item {...formAttrs.phone_number}>
                 <Input />
             </Form.Item>
-            <Form.Item {...formAttrs.email}>
+            <Form.Item {...formAttrs.last_name}>
                 <Input />
             </Form.Item>
-            <Form.Item {...formAttrs.identity_number}>
+            <Form.Item {...formAttrs.first_name}>
                 <Input />
             </Form.Item>
-            <Form.Item {...formAttrs.issue_date}>
-                <DateInput />
+            <Form.Item {...formAttrs.groups}>
+                <SelectInput options={staffOptions.group} mode="multiple" block />
             </Form.Item>
-            <Form.Item {...formAttrs.issue_place}>
-                <Input />
-            </Form.Item>
-            <Form.Item {...formAttrs.date_of_birth}>
-                <DateInput />
-            </Form.Item>
-            <Form.Item {...formAttrs.gender}>
-                <Radio.Group>
-                    <Radio value={1}>Nam</Radio>
-                    <Radio value={2}>Nữ</Radio>
-                </Radio.Group>
-            </Form.Item>
-            <Form.Item {...formAttrs.participated_place_id}>
-                <Input />
-            </Form.Item>
-            <Form.Item {...formAttrs.place_of_residence}>
-                <Input />
-            </Form.Item>
-            <Form.Item {...formAttrs.ethnic_id}>
-                <SelectInput options={staffOptions.group} block />
-            </Form.Item>
-            <Form.Item {...formAttrs.religion_id}>
-                <SelectInput options={staffOptions.group} block />
-            </Form.Item>
-            <Form.Item {...formAttrs.occupation_id}>
-                <SelectInput options={staffOptions.group} block />
-            </Form.Item>
-            <Title level={5}>Thông tin Đoàn</Title>
-            <Form.Item {...formAttrs.position_id}>
-                <SelectInput options={staffOptions.group} block />
-            </Form.Item>
-            <Form.Item {...formAttrs.joined_date}>
-                <SelectInput options={staffOptions.group} block />
-            </Form.Item>
-            <Text strong>Nơi sinh hoạt Đoàn</Text>
-            <Title level={5}>Thông tin học vấn</Title>
-            <Form.Item {...formAttrs.education_level_id}>
-                <SelectInput options={staffOptions.group} block />
-            </Form.Item>
-            <Form.Item {...formAttrs.qualification_id}>
-                <SelectInput options={staffOptions.group} block />
-            </Form.Item>
-            <Form.Item {...formAttrs.it_level}>
-                <SelectInput options={staffOptions.group} block />
-            </Form.Item>
-            <Form.Item {...formAttrs.political_theory_level}>
-                <SelectInput options={staffOptions.group} block />
+            <Form.Item {...formAttrs.is_active}>
+                <CheckInput />
             </Form.Item>
         </Form>
     );
 }
+
 StaffForm.displayName = formName;
 StaffForm.formName = formName;
