@@ -23,7 +23,7 @@ export default function TreeCheckInput({
     blankLabel = "",
     allowClear = false,
     disabled = false,
-    onChange
+    onChange,
 }) {
     function optionsWithBlankValue(options) {
         const isMulti = mode === "multiple";
@@ -31,7 +31,7 @@ export default function TreeCheckInput({
 
         const blankOption = {
             value: null,
-            label: `--- ${blankLabel} ---`
+            label: `--- ${blankLabel} ---`,
         };
         return [blankOption, ...options];
     }
@@ -42,11 +42,14 @@ export default function TreeCheckInput({
             showSearch
             allowClear={allowClear}
             value={value}
+            size="large"
             mode={mode}
             disabled={disabled}
             onChange={onChange}
             filterOption={(input, option) =>
-                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                option.props.children
+                    .toLowerCase()
+                    .indexOf(input.toLowerCase()) >= 0
             }
         >
             {optionsWithBlankValue(options).map(({ value, label }) => (

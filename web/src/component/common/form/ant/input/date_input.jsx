@@ -1,5 +1,5 @@
 import * as React from "react";
-import DatePicker from "component/common/form/ant/date_picker";
+import { DatePicker } from "antd";
 import { DATE_REABLE_FORMAT } from "service/helper/util";
 
 /**
@@ -18,6 +18,7 @@ export default function DateInput({ value, onChange }) {
             onChange={onChange}
             format={DATE_REABLE_FORMAT}
             style={{ width: "100%" }}
+            size="large"
         />
     );
 }

@@ -1,7 +1,6 @@
 const path = require("path");
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-
 // https://vitejs.dev/config/
 export default defineConfig({
     resolve: {
@@ -9,36 +8,29 @@ export default defineConfig({
             src: path.resolve(__dirname, "./src"),
             service: path.resolve(__dirname, "./src/service"),
             component: path.resolve(__dirname, "./src/component"),
-            style: path.resolve(__dirname, "./src/style"),
-        }
+        },
     },
     server: {
         host: "0.0.0.0",
         port: 3000,
         hmr: {
-            host: "dnyouth.test",
+            host: "base.test",
             clientPort: 443,
-            protocol: "wss"
-        }
+            protocol: "wss",
+        },
     },
-    plugins: [
-        react({
-            fastRefresh: process.env.NODE_ENV !== "test"
-        })
-    ],
+    plugins: [react()],
     test: {
         globals: true,
         environment: "jsdom",
-        setupFiles: ["./src/vitest.setup.js"]
+        setupFiles: ["./src/vitest.setup.js"],
     },
     css: {
         preprocessorOptions: {
             less: {
-                modifyVars: {
-                    "primary-color": "@blue-6"
-                },
-                javascriptEnabled: true
-            }
-        }
-    }
+                modifyVars: {},
+                javascriptEnabled: true,
+            },
+        },
+    },
 });

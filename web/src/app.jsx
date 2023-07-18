@@ -4,6 +4,7 @@ import { RecoilRoot, useRecoilState } from "recoil";
 import { useLocale } from "ttag";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { localeSt } from "src/states";
+import { ConfigProvider } from "antd";
 import PrivateRoute from "component/common/route/private_route.jsx";
 import NotMatch from "component/common/route/not_match";
 import ScrollToTop from "component/common/scroll_to_top";
@@ -13,7 +14,8 @@ import BlankLayout from "component/common/layout/blank";
 import MainLayout from "component/common/layout/main";
 import Util from "service/helper/util";
 import LocaleUtil from "service/helper/locale_util";
-
+import "dayjs/locale/vi";
+import localeVi from "antd/locale/vi_VN";
 Util.responseIntercept();
 const lazyImport = (Component) => (props) => {
     return (
@@ -23,12 +25,12 @@ const lazyImport = (Component) => (props) => {
     );
 };
 
-const Login = lazyImport(lazy(() => import("component/account/auth/login")));
-const Profile = lazyImport(lazy(() => import("component/account/auth/profile")));
-const Staff = lazyImport(lazy(() => import("component/account/staff")));
-const Role = lazyImport(lazy(() => import("component/account/role")));
-const Variable = lazyImport(lazy(() => import("component/config/variable")));
-const Recipient = lazyImport(lazy(() => import("component/dropdown/recipient")));
+const Home = lazyImport(lazy(() => import("component/home")));
+const Login = lazyImport(lazy(() => import("component/auth/login")));
+const Staff = lazyImport(lazy(() => import("component/staff")));
+const UnionMember = lazyImport(lazy(() => import("component/union_member")));
+const Role = lazyImport(lazy(() => import("component/role")));
+const Variable = lazyImport(lazy(() => import("component/variable")));
 
 function Index() {
     const [dataLoaded, setDataLoaded] = useState(false);
@@ -44,27 +46,42 @@ function Index() {
         return <div>Loading...</div>;
     }
     return (
-        <div key={locale}>
-            <Spinner />
-            <BrowserRouter>
-                <ScrollToTop />
-                <Routes>
-                    <Route path="/login" element={<BlankLayout />}>
-                        <Route path="/login/" element={<Login />} />
-                    </Route>
-                    <Route path="/" element={<PrivateRoute />}>
-                        <Route path="/" element={<MainLayout />}>
-                            <Route path="/" element={<Profile />} />
-                            <Route path="/account/staff" element={<Staff />} />
-                            <Route path="/account/role" element={<Role />} />
-                            <Route path="/config/variable" element={<Variable />} />
-                            <Route path="/dropdown/recipient" element={<Recipient />} />
+        <ConfigProvider
+            theme={{
+                token: {
+                    fontFamily: '"Inter", sans-serif',
+                },
+            }}
+            locale={localeVi}
+        >
+            <div key={locale}>
+                <Spinner />
+                <BrowserRouter>
+                    <ScrollToTop />
+                    <Routes>
+                        <Route path="/login" element={<BlankLayout />}>
+                            <Route path="/login/" element={<Login />} />
                         </Route>
-                    </Route>
-                    <Route path="*" element={<NotMatch />} />
-                </Routes>
-            </BrowserRouter>
-        </div>
+                        <Route path="/" element={<PrivateRoute />}>
+                            <Route path="/" element={<MainLayout />}>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/staff" element={<Staff />} />
+                                <Route
+                                    path="/members"
+                                    element={<UnionMember />}
+                                />
+                                <Route path="/role" element={<Role />} />
+                                <Route
+                                    path="/variable"
+                                    element={<Variable />}
+                                />
+                            </Route>
+                        </Route>
+                        <Route path="*" element={<NotMatch />} />
+                    </Routes>
+                </BrowserRouter>
+            </div>
+        </ConfigProvider>
     );
 }
 

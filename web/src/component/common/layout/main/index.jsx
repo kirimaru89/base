@@ -2,22 +2,17 @@ import * as React from "react";
 import { useState } from "react";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { t } from "ttag";
-import { Layout, Menu, Row, Col } from "antd";
+import { Layout, Menu, Row, Col, Breadcrumb, theme } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    UserOutlined,
     TeamOutlined,
-    LogoutOutlined,
-    SettingFilled,
-    UsergroupAddOutlined,
-    GoldenFilled
+    HomeOutlined,
 } from "@ant-design/icons";
 import { LOGO_TEXT } from "src/consts";
-import StorageUtil from "service/helper/storage_util";
 import PemUtil from "service/helper/pem_util";
 import NavUtil from "service/helper/nav_util";
-import LocaleSelect from "component/common/locale_select.jsx";
+import DropDownProfile from "./dropdown_profile";
 import styles from "./styles.module.css";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -34,7 +29,6 @@ export default function MainLayout() {
         setCollapsed(!collapsed);
     };
 
-    const logout = NavUtil.logout(navigate);
     const navigateTo = NavUtil.navigateTo(navigate);
 
     /**
@@ -44,61 +38,41 @@ export default function MainLayout() {
      * @returns {string}
      */
     function processSelectedKey(pathname) {
-        if (pathname.startsWith("/staff")) return "/staff";
+        if (pathname.startsWith("/")) return "/";
         return pathname;
     }
 
     function getMenuItems() {
         const result = [];
-
-        result.push({ label: t`Profile`, key: "/", icon: <UserOutlined /> });
-
-        PemUtil.canView("variable") &&
-            result.push({
-                label: t`Config`,
-                key: "/config/variable",
-                icon: <SettingFilled />
-            });
-
-
-        if (PemUtil.canView(["recipient"])) {
-            const dropdownGroup = {
-                label: t`Dropdown`,
-                icon: <GoldenFilled />,
-                children: []
-            };
-            PemUtil.canView("recipient") && 
-                dropdownGroup.children.push({
-                    label: t`Recipient`,
-                    key: "/dropdown/recipient",
-                    icon: <SettingFilled />
-                });
-            result.push(dropdownGroup);
-        }
-
+        result.push({
+            label: t`Home`,
+            key: "/",
+            icon: <HomeOutlined />,
+        });
         if (PemUtil.canView(["staff", "group"])) {
-            const companyGroup = {
-                label: t`Company`,
-                icon: <GoldenFilled />,
-                children: []
-            };
-            PemUtil.canView("staff") &&
-                companyGroup.children.push({
-                    label: t`Staff`,
-                    key: "/account/staff",
-                    icon: <TeamOutlined />
-                });
-            PemUtil.canView("group") &&
-                companyGroup.children.push({
-                    label: t`Group`,
-                    key: "/account/role",
-                    icon: <UsergroupAddOutlined />
-                });
-            result.push(companyGroup);
+            result.push({
+                label: "Staff",
+                key: "/staff",
+                icon: <TeamOutlined />,
+            });
         }
+        if (PemUtil.canView(["members", "group"])) {
+            result.push({
+                label: "Quản lý đoàn viên",
+                key: "/members",
+                icon: <TeamOutlined />,
+            });
+        }
+        result.push({
+            label: "Quản lý đoàn viên",
+            key: "/members",
+            icon: <TeamOutlined />,
+        });
         return result;
     }
-
+    const {
+        token: { colorBgContainer },
+    } = theme.useToken();
     return (
         <Layout className={styles.wrapperContainer}>
             <Sider
@@ -111,58 +85,70 @@ export default function MainLayout() {
                     setCollapsed(broken);
                 }}
             >
-                <div className="sider">
-                    <div className="logo">
-                        <div className="logo-text">{collapsed || LOGO_TEXT}</div>
-                    </div>
-                    <Menu
-                        className="sidebar-nav"
-                        defaultSelectedKeys={[processSelectedKey(location.pathname)]}
-                        theme="dark"
-                        mode="inline"
-                        items={getMenuItems()}
-                        onSelect={({ key }) => navigateTo(key)}
-                    />
-                </div>
+                <div className="logo">{collapsed || LOGO_TEXT}</div>
+                <Menu
+                    className="sidebar-nav"
+                    defaultSelectedKeys={[
+                        processSelectedKey(location.pathname),
+                    ]}
+                    theme="dark"
+                    mode="inline"
+                    items={getMenuItems()}
+                    onSelect={({ key }) => navigateTo(key)}
+                />
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-header" style={{ padding: 0 }}>
+                <Header
+                    style={{
+                        padding: "0 1.5rem",
+                        background: colorBgContainer,
+                    }}
+                >
                     <Row>
                         <Col span={12}>
                             {React.createElement(
-                                collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                                collapsed
+                                    ? MenuUnfoldOutlined
+                                    : MenuFoldOutlined,
                                 {
                                     className: "trigger",
-                                    onClick: toggle
+                                    onClick: toggle,
                                 }
                             )}
                         </Col>
-                        <Col span={12} className="right" style={{ paddingRight: 20 }}>
-                            <span
-                                onClick={logout}
-                                onKeyDown={() => {}}
-                                onKeyUp={() => {}}
-                                onKeyPress={() => {}}
-                                className="pointer"
-                                role="button"
-                                tabIndex="0"
-                            >
-                                <span>
-                                    {StorageUtil.getStorageObj("auth").fullname}
-                                </span>
-                                &nbsp;&nbsp;
-                                <LogoutOutlined />
-                            </span>
+                        <Col span={12} className="right">
+                            {<DropDownProfile />}
                         </Col>
                     </Row>
                 </Header>
-                <Content className="site-layout-content">
+                <Content
+                    style={{
+                        margin: "0 1rem",
+                    }}
+                >
+                    <Breadcrumb
+                        style={{
+                            margin: "0.5rem 0",
+                        }}
+                        items={[
+                            {
+                                title: "Home",
+                            },
+                            {
+                                title: <a href="">Application Center</a>,
+                            },
+                            {
+                                title: <a href="">Application List</a>,
+                            },
+                            {
+                                title: "An Application",
+                            },
+                        ]}
+                    />
                     <Outlet />
                 </Content>
                 <Footer className="layout-footer">
-                    <div className="layout-footer-text">
-                        Copyright dnyouth.test 2023
-                    </div>
+                    Copyright base.test 2022
                 </Footer>
             </Layout>
         </Layout>

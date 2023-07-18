@@ -16,14 +16,20 @@ const { Search } = Input;
  * @param {onChange} props.onChange
  * @returns {ReactElement}
  */
-export default function SearchInput({ show = true, onChange }) {
+export default function SearchInput({
+    show = true,
+    onChange,
+    placeholder = `${t`Search`}...`,
+    width,
+}) {
     if (!show) return null;
     return (
         <div>
             <Search
                 name="keyword"
-                placeholder={t`Search` + "..."}
+                placeholder={placeholder}
                 onSearch={onChange}
+                style={{ width: width }}
             />
         </div>
     );

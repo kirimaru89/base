@@ -68,13 +68,14 @@ export default class Util {
      * @param {Object[]} list
      * @returns {Object[]}
      */
-    static appendKey(list) {
+    static appendKey(list, page = 0, page_size = 0) {
         return list.map((item, index) => {
             if (item.id !== undefined) {
                 item.key = item.id;
             } else {
                 item.key = index;
             }
+            item.index = (page - 1) * page_size + index + 1;
             return item;
         });
     }
@@ -115,7 +116,7 @@ export default class Util {
      */
     static getDialogTitle(id, messages) {
         const action = id ? t`Update` : t`Add new`;
-        const subject = messages.heading.toLowerCase();
+        const subject = messages.name.toLowerCase();
         return `${action} ${subject}`;
     }
 
@@ -232,7 +233,7 @@ export default class Util {
             dispatch: (eventName, detail) => {
                 const event = new CustomEvent(eventName, { detail });
                 window.document.dispatchEvent(event);
-            }
+            },
         };
     }
 
