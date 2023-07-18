@@ -35,7 +35,7 @@ export default function StaffDialog({ onChange }) {
             Util.toggleGlobalLoading();
             RequestUtil.apiCall(`${urls.crud}${id}`)
                 .then((resp) => {
-                    setData(resp.data);
+                    setData(resp);
                     setOpen(true);
                 })
                 .finally(() => Util.toggleGlobalLoading(false));
@@ -58,7 +58,11 @@ export default function StaffDialog({ onChange }) {
             maskClosable={false}
             destroyOnClose
             open={open}
-            okButtonProps={{ form: Form.formName, key: "submit", htmlType: "submit" }}
+            okButtonProps={{
+                form: Form.formName,
+                key: "submit",
+                htmlType: "submit",
+            }}
             okText={t`Save`}
             onCancel={() => Service.toggle(false)}
             cancelText={t`Cancel`}

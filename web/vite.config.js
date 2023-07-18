@@ -8,13 +8,14 @@ export default defineConfig({
             src: path.resolve(__dirname, "./src"),
             service: path.resolve(__dirname, "./src/service"),
             component: path.resolve(__dirname, "./src/component"),
+            consts: path.resolve(__dirname, "./src/consts"),
         },
     },
     server: {
         host: "0.0.0.0",
         port: 3000,
         hmr: {
-            host: "base.test",
+            host: "dnyouth.test",
             clientPort: 443,
             protocol: "wss",
         },

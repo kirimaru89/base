@@ -16,7 +16,7 @@ export default class FormUtil {
                 notification.error({
                     message: "Error",
                     description: errorDict.detail,
-                    duration: 8
+                    duration: 8,
                 });
                 delete errorDict.detail;
             }
@@ -24,7 +24,7 @@ export default class FormUtil {
                 form.setFields(
                     Object.entries(errorDict).map(([name, errors]) => ({
                         name,
-                        errors: typeof errors === "string" ? [errors] : errors
+                        errors: typeof errors === "string" ? [errors] : errors,
                     }))
                 );
         };
@@ -40,7 +40,7 @@ export default class FormUtil {
         return new Promise((resolve, reject) => {
             RequestUtil.apiCall(url, payload, method)
                 .then((resp) => {
-                    resolve(resp.data);
+                    resolve(resp);
                 })
                 .catch((err) => {
                     reject(err.response.data);
@@ -69,7 +69,7 @@ export default class FormUtil {
         fieldName = FormUtil.getDefaultFieldName(fieldName);
         return {
             required: true,
-            message: `Trường ${fieldName} là bắt buộc`
+            message: `Trường ${fieldName} là bắt buộc`,
         };
     }
 
@@ -85,7 +85,7 @@ export default class FormUtil {
         return {
             type: "number",
             min,
-            message: `Trường "${fieldName}" có giá trị bé nhất là: ${min}`
+            message: `Trường "${fieldName}" có giá trị bé nhất là: ${min}`,
         };
     }
 
@@ -101,7 +101,7 @@ export default class FormUtil {
         return {
             type: "number",
             max,
-            message: `Trường "${fieldName}" có giá trị lớn nhất là: ${max}`
+            message: `Trường "${fieldName}" có giá trị lớn nhất là: ${max}`,
         };
     }
 }

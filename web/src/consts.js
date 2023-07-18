@@ -10,3 +10,13 @@ export const API_PREFIX = "/api/v1/";
 export const LOCAL_STORAGE_PREFIX = APP_NAMESPACE;
 
 export const LOGO_TEXT = ENV.VITE_LOGO_TEXT || "LOGO";
+export const STATUS_ARRAY = [
+    {
+        label: "Đang hoạt động",
+        value: 1,
+    },
+    {
+        label: "Tạm ngưng",
+        value: 0,
+    },
+];

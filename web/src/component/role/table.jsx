@@ -7,7 +7,7 @@ import {
     AddNewBtn,
     RemoveSelectedBtn,
     EditBtn,
-    RemoveBtn
+    RemoveBtn,
 } from "component/common/table/buttons";
 import PemCheck from "component/common/pem_check";
 import Util from "service/helper/util";
@@ -27,9 +27,9 @@ export default function RoleTable() {
     const getList = (url = "", params = {}) => {
         RequestUtil.apiCall(url ? url : urls.crud, params)
             .then((resp) => {
-                setLinks(resp.data.links);
-                setList(Util.appendKey(resp.data.items));
-                setPems(resp.data.extra.permissions);
+                setLinks(resp.links);
+                setList(Util.appendKey(resp.items));
+                setPems(resp.extra.permissions);
             })
             .finally(() => {
                 setInit(false);
@@ -82,7 +82,7 @@ export default function RoleTable() {
         {
             key: "name",
             title: labels.name,
-            dataIndex: "name"
+            dataIndex: "name",
         },
         {
             key: "action",
@@ -92,20 +92,22 @@ export default function RoleTable() {
             render: (_text, record) => (
                 <div className="flex-space">
                     <PemCheck pem_group={PEM_GROUP} pem="change">
-                        <EditBtn onClick={() => Dialog.toggle(true, record.id)} />
+                        <EditBtn
+                            onClick={() => Dialog.toggle(true, record.id)}
+                        />
                     </PemCheck>
                     <PemCheck pem_group={PEM_GROUP} pem="delete">
                         <RemoveBtn onClick={() => onDelete(record.id)} />
                     </PemCheck>
                 </div>
-            )
-        }
+            ),
+        },
     ];
 
     const rowSelection = {
         onChange: (ids) => {
             setIds(ids);
-        }
+        },
     };
 
     return (
@@ -128,7 +130,7 @@ export default function RoleTable() {
             <Table
                 rowSelection={{
                     type: "checkbox",
-                    ...rowSelection
+                    ...rowSelection,
                 }}
                 columns={columns}
                 dataSource={list}
@@ -136,7 +138,11 @@ export default function RoleTable() {
                 scroll={{ x: 1000 }}
                 pagination={false}
             />
-            <Pagination next={links.next} prev={links.previous} onChange={getList} />
+            <Pagination
+                next={links.next}
+                prev={links.previous}
+                onChange={getList}
+            />
             <Dialog pems={pems} onChange={onChange} />
         </div>
     );

@@ -8,12 +8,12 @@ import Form from "./form";
 import { urls, messages } from "../config";
 
 /**
- * StaffDialog.
+ * UnionMemberDialog.
  *
  * @param {Object} props
  * @param {function} props.onChange - (data: Dict, id: number) => void
  */
-const StaffDialog = forwardRef(({ onChange }, ref) => {
+const UnionMemberDialog = forwardRef(({ onChange }, ref) => {
     const [data, setData] = useState({});
     const [open, setOpen] = useState(false);
     const [id, setId] = useState(0);
@@ -23,7 +23,7 @@ const StaffDialog = forwardRef(({ onChange }, ref) => {
             Util.toggleGlobalLoading();
             RequestUtil.apiCall(`${urls.crud}${id}`)
                 .then((resp) => {
-                    setData(resp.data);
+                    setData(resp);
                     setOpen(true);
                 })
                 .finally(() => Util.toggleGlobalLoading(false));
@@ -63,5 +63,5 @@ const StaffDialog = forwardRef(({ onChange }, ref) => {
     );
 });
 
-StaffDialog.displayName = "StaffDialog";
-export default StaffDialog;
+UnionMemberDialog.displayName = "UnionMemberDialog";
+export default UnionMemberDialog;

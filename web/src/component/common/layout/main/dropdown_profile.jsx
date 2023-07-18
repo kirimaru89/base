@@ -28,7 +28,7 @@ export default function DropDownProfile() {
 
     useEffect(() => {
         RequestUtil.apiCall(urls.profile).then((resp) => {
-            setProfileData(resp.data);
+            setProfileData(resp);
         });
     }, []);
     const items = [

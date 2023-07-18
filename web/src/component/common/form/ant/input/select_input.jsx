@@ -30,7 +30,7 @@ export default function TreeCheckInput({
         if (isMulti || !blankLabel) return options;
 
         const blankOption = {
-            value: null,
+            value: "",
             label: `--- ${blankLabel} ---`,
         };
         return [blankOption, ...options];
@@ -42,7 +42,6 @@ export default function TreeCheckInput({
             showSearch
             allowClear={allowClear}
             value={value}
-            size="large"
             mode={mode}
             disabled={disabled}
             onChange={onChange}

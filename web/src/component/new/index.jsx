@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useEffect, useState, useRef } from "react";
 import { useSetRecoilState } from "recoil";
-import { Card, Typography, Space } from "antd";
+import { Card, Typography, Space, Switch } from "antd";
+import Image from "component/common/image";
 import SearchInput from "component/common/table/search_input";
 import CommonTable from "component/common/table";
 import { AddNewBtn, EditBtn, RemoveBtn } from "component/common/table/buttons";
@@ -9,12 +10,24 @@ import PemCheck from "component/common/pem_check";
 import Util from "service/helper/util";
 import RequestUtil from "service/helper/request_util";
 import Dialog from "./dialog";
-import { unionMemberOptionsSt } from "./states";
+import { newOptionsSt } from "./states";
 import { urls, labels, messages } from "./config";
-const PEM_GROUP = "unionMember";
+const PEM_GROUP = "new";
 const { Title } = Typography;
-
-export default function UnionMember() {
+const mockupData = [
+    {
+        id: 1,
+        thumbnail:
+            "https://phuquoctrip.com/files/images/Others/kinh-nghiem-du-lich-phu-quoc-mua-mua-thumbnail.jpg",
+        title: "Kinh nghiệm du lịch phú quốc",
+        category: "Du lịch",
+        type: "Tin nổi bật",
+        created_at: "14:14:59 14/11/2022",
+        created_by: "Dat Le",
+        status: 1,
+    },
+];
+export default function New() {
     const table = useRef();
     const dialog = useRef();
     const [loading, setLoading] = useState(true);
@@ -25,12 +38,11 @@ export default function UnionMember() {
         page_size: 15,
     });
     const [list, setList] = useState([]);
-    const setUnionMemberOptions = useSetRecoilState(unionMemberOptionsSt);
+    const setnewOptions = useSetRecoilState(newOptionsSt);
     const getList = () => {
         setLoading(true);
         RequestUtil.apiCall(urls.crud, filter)
             .then((res) => {
-                console.log(res);
                 setPaging((p) => {
                     return {
                         page: filter.page,
@@ -39,7 +51,10 @@ export default function UnionMember() {
                     };
                 });
                 setList(res.items);
-                setUnionMemberOptions(res.extra.options);
+                setnewOptions(res.extra.options);
+            })
+            .catch(() => {
+                setList(mockupData);
             })
             .finally(() => {
                 setLoading(false);
@@ -69,18 +84,6 @@ export default function UnionMember() {
             .finally(() => Util.toggleGlobalLoading(false));
     };
 
-    const onBulkDelete = (ids) => {
-        const r = window.confirm(messages.deleteMultiple);
-        if (!r) return;
-
-        Util.toggleGlobalLoading(true);
-        RequestUtil.apiCall(`${urls.crud}?ids=${ids.join(",")}`, {}, "delete")
-            .then(() => {
-                setList([...list.filter((item) => !ids.includes(item.id))]);
-            })
-            .finally(() => Util.toggleGlobalLoading(false));
-    };
-
     const onChange = (data, id) => {
         if (!id) {
             setList([{ ...data, key: data.id }, ...list]);
@@ -91,6 +94,20 @@ export default function UnionMember() {
             setList([...list]);
         }
     };
+    const onChangeStatus = (e, data) => {
+        RequestUtil.apiCall(
+            urls.updateStatus,
+            { new_id: data.id, status: e },
+            "post"
+        )
+            .then((res) => {
+                onChange(res, res.id);
+            })
+            .catch(() => {
+                data.status = e;
+                onChange(data, data.id);
+            });
+    };
 
     const columns = [
         {
@@ -100,34 +117,49 @@ export default function UnionMember() {
             width: 60,
         },
         {
-            key: "full_name",
-            title: labels.full_name,
-            dataIndex: "full_name",
+            key: "thumbnail",
+            title: labels.thumbnail,
+            dataIndex: "thumbnail",
+            render: (_text, record) => {
+                return <Image type="thumbnail" url={_text} />;
+            },
+            width: 150,
         },
         {
-            key: "email",
-            title: labels.email,
-            dataIndex: "email",
+            key: "title",
+            title: labels.title,
+            dataIndex: "title",
         },
         {
-            key: "position",
-            title: labels.position,
-            dataIndex: "position",
+            key: "category",
+            title: labels.category,
+            dataIndex: "category",
         },
         {
-            key: "phone_number",
-            title: labels.phone_number,
-            dataIndex: "phone_number",
+            key: "type",
+            title: labels.type,
+            dataIndex: "type",
         },
         {
-            key: "gender",
-            title: labels.gender,
-            dataIndex: "gender",
+            key: "created_at",
+            title: labels.created_at,
+            dataIndex: "created_at",
         },
         {
-            key: "address_union",
-            title: labels.address_union,
-            dataIndex: "address_union",
+            key: "created_by",
+            title: labels.created_by,
+            dataIndex: "created_by",
+        },
+        {
+            key: "status",
+            title: labels.status,
+            dataIndex: "status",
+            render: (_text, record) => (
+                <Switch
+                    checked={_text}
+                    onChange={(event) => onChangeStatus(event, record)}
+                />
+            ),
         },
         {
             key: "action",
@@ -190,4 +222,4 @@ export default function UnionMember() {
     );
 }
 
-UnionMember.displayName = "UnionMember";
+New.displayName = "New";

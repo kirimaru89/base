@@ -1,13 +1,13 @@
 import * as React from "react";
 import Util from "service/helper/util";
 import { useRecoilValue } from "recoil";
-import { Form, Radio, Typography, notification } from "antd";
+import { Form, Radio, Typography } from "antd";
 import FormUtil from "service/helper/form_util";
 import SelectInput from "component/common/form/ant/input/select_input.jsx";
 import DateInput from "component/common/form/ant/input/date_input.jsx";
 import Input from "component/common/form/ant/input";
 import { urls, labels, emptyRecord } from "../config";
-import { staffOptionsSt } from "../states";
+import { unionMemberOptionsSt } from "../states";
 const { Title, Text } = Typography;
 /**
  * @callback FormCallback
@@ -16,19 +16,19 @@ const { Title, Text } = Typography;
  * @param {number} id
  */
 
-const formName = "StaffForm";
+const formName = "UnionMemberForm";
 
 /**
- * StaffForm.
+ * UnionMemberForm.
  *
  * @param {Object} props
  * @param {Object} props.data
  * @param {FormCallback} props.onChange
  * @param {Object} props.formRef
  */
-export default function StaffForm({ data, onChange }) {
+export default function UnionMemberForm({ data, onChange }) {
     const [form] = Form.useForm();
-    const staffOptions = useRecoilValue(staffOptionsSt);
+    const unionMemberOptions = useRecoilValue(unionMemberOptionsSt);
 
     const initialValues = Util.isEmpty(data) ? emptyRecord : { ...data };
     const id = initialValues.id;
@@ -127,11 +127,6 @@ export default function StaffForm({ data, onChange }) {
             requiredmarkposition={"right"}
             initialValues={{ ...initialValues }}
             onFinish={(payload) => {
-                notification.success({
-                    message: "Notification Title",
-                    description:
-                        "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
-                });
                 return FormUtil.submit(endPoint, payload, method)
                     .then((data) => onChange(data, id))
                     .catch(FormUtil.setFormErrors(form));
@@ -172,37 +167,37 @@ export default function StaffForm({ data, onChange }) {
                 <Input />
             </Form.Item>
             <Form.Item {...formAttrs.ethnic_id}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
             <Form.Item {...formAttrs.religion_id}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
             <Form.Item {...formAttrs.occupation_id}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
             <Title level={5}>Thông tin Đoàn</Title>
             <Form.Item {...formAttrs.position_id}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
             <Form.Item {...formAttrs.joined_date}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
             <Text strong>Nơi sinh hoạt Đoàn</Text>
             <Title level={5}>Thông tin học vấn</Title>
             <Form.Item {...formAttrs.education_level_id}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
             <Form.Item {...formAttrs.qualification_id}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
             <Form.Item {...formAttrs.it_level}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
             <Form.Item {...formAttrs.political_theory_level}>
-                <SelectInput options={staffOptions.group} block />
+                <SelectInput options={unionMemberOptions.group} block />
             </Form.Item>
         </Form>
     );
 }
-StaffForm.displayName = formName;
-StaffForm.formName = formName;
+UnionMemberForm.displayName = formName;
+UnionMemberForm.formName = formName;

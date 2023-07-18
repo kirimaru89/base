@@ -18,7 +18,6 @@ export default function DateInput({ value, onChange }) {
             onChange={onChange}
             format={DATE_REABLE_FORMAT}
             style={{ width: "100%" }}
-            size="large"
         />
     );
 }

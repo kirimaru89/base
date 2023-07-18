@@ -8,7 +8,7 @@ import {
     AddNewBtn,
     RemoveSelectedBtn,
     EditBtn,
-    RemoveBtn
+    RemoveBtn,
 } from "component/common/table/buttons";
 import PemCheck from "component/common/pem_check";
 import Util from "service/helper/util";
@@ -32,9 +32,9 @@ export default function StaffTable() {
             showLoading && Util.toggleGlobalLoading();
             RequestUtil.apiCall(url ? url : urls.crud, params)
                 .then((resp) => {
-                    setLinks(resp.data.links);
-                    setList(Util.appendKey(resp.data.items));
-                    setStaffOptions(resp.data.extra.options);
+                    setLinks(resp.links);
+                    setList(Util.appendKey(resp.items));
+                    setStaffOptions(resp.extra.options);
                 })
                 .finally(() => {
                     setInit(false);
@@ -89,17 +89,17 @@ export default function StaffTable() {
         {
             key: "full_name",
             title: labels.full_name,
-            dataIndex: "full_name"
+            dataIndex: "full_name",
         },
         {
             key: "email",
             title: labels.email,
-            dataIndex: "email"
+            dataIndex: "email",
         },
         {
             key: "phone_number",
             title: labels.phone_number,
-            dataIndex: "phone_number"
+            dataIndex: "phone_number",
         },
         {
             key: "action",
@@ -109,20 +109,22 @@ export default function StaffTable() {
             render: (_text, record) => (
                 <div className="flex-space">
                     <PemCheck pem_group={PEM_GROUP} pem="change">
-                        <EditBtn onClick={() => Dialog.toggle(true, record.id)} />
+                        <EditBtn
+                            onClick={() => Dialog.toggle(true, record.id)}
+                        />
                     </PemCheck>
                     <PemCheck pem_group={PEM_GROUP} pem="delete">
                         <RemoveBtn onClick={() => onDelete(record.id)} />
                     </PemCheck>
                 </div>
-            )
-        }
+            ),
+        },
     ];
 
     const rowSelection = {
         onChange: (ids) => {
             setIds(ids);
-        }
+        },
     };
 
     return (
@@ -145,7 +147,7 @@ export default function StaffTable() {
             <Table
                 rowSelection={{
                     type: "checkbox",
-                    ...rowSelection
+                    ...rowSelection,
                 }}
                 columns={columns}
                 dataSource={list}
@@ -153,7 +155,11 @@ export default function StaffTable() {
                 scroll={{ x: 1000 }}
                 pagination={false}
             />
-            <Pagination next={links.next} prev={links.previous} onChange={getList()} />
+            <Pagination
+                next={links.next}
+                prev={links.previous}
+                onChange={getList()}
+            />
             <Dialog onChange={onChange} />
         </div>
     );

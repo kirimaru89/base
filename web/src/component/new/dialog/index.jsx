@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import { t } from "ttag";
 import { Modal } from "antd";
 import Util from "service/helper/util";
@@ -7,29 +7,17 @@ import RequestUtil from "service/helper/request_util";
 import Form from "./form";
 import { urls, messages } from "../config";
 
-export class Service {
-    static get toggleEvent() {
-        return "TOGGLE_VARIABLE_DIALOG";
-    }
-
-    static toggle(open = true, id = 0) {
-        Util.event.dispatch(Service.toggleEvent, { open, id });
-    }
-}
-
 /**
- * VariableDialog.
+ * newDialog.
  *
  * @param {Object} props
  * @param {function} props.onChange - (data: Dict, id: number) => void
  */
-export default function VariableDialog({ onChange }) {
+const newDialog = forwardRef(({ onChange }, ref) => {
     const [data, setData] = useState({});
     const [open, setOpen] = useState(false);
     const [id, setId] = useState(0);
-
-    const handleToggle = ({ detail: { open, id } }) => {
-        if (!open) return setOpen(false);
+    const loadData = (id) => {
         setId(id);
         if (id) {
             Util.toggleGlobalLoading();
@@ -44,29 +32,25 @@ export default function VariableDialog({ onChange }) {
             setOpen(true);
         }
     };
-
-    useEffect(() => {
-        Util.event.listen(Service.toggleEvent, handleToggle);
-        return () => {
-            Util.event.remove(Service.toggleEvent, handleToggle);
-        };
-    }, []);
-
+    useImperativeHandle(ref, () => ({ loadData }));
     return (
         <Modal
-            keyboard={false}
-            maskClosable={false}
             destroyOnClose
-            visible={open}
+            open={open}
             okButtonProps={{
                 form: Form.formName,
                 key: "submit",
                 htmlType: "submit",
             }}
             okText={t`Save`}
-            onCancel={() => Service.toggle(false)}
+            onCancel={() => setOpen(false)}
             cancelText={t`Cancel`}
-            title={Util.getDialogTitle(id, messages)}
+            width={800}
+            title={
+                <span style={{ fontWeight: 700, lineHeight: 1.75 }}>
+                    {Util.getDialogTitle(id, messages)}
+                </span>
+            }
         >
             <Form
                 data={data}
@@ -77,7 +61,7 @@ export default function VariableDialog({ onChange }) {
             />
         </Modal>
     );
-}
+});
 
-VariableDialog.displayName = "VariableDialog";
-VariableDialog.toggle = Service.toggle;
+newDialog.displayName = "newDialog";
+export default newDialog;

@@ -2,7 +2,7 @@ import * as React from "react";
 import { lazy, useEffect, useState } from "react";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { useLocale } from "ttag";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import { localeSt } from "src/states";
 import { ConfigProvider } from "antd";
 import PrivateRoute from "component/common/route/private_route.jsx";
@@ -29,6 +29,7 @@ const Home = lazyImport(lazy(() => import("component/home")));
 const Login = lazyImport(lazy(() => import("component/auth/login")));
 const Staff = lazyImport(lazy(() => import("component/staff")));
 const UnionMember = lazyImport(lazy(() => import("component/union_member")));
+const New = lazyImport(lazy(() => import("component/new")));
 const Role = lazyImport(lazy(() => import("component/role")));
 const Variable = lazyImport(lazy(() => import("component/variable")));
 
@@ -64,16 +65,21 @@ function Index() {
                         </Route>
                         <Route path="/" element={<PrivateRoute />}>
                             <Route path="/" element={<MainLayout />}>
-                                <Route path="/" element={<Home />} />
-                                <Route path="/staff" element={<Staff />} />
+                                {/* <Route path="/" element={<Home />} /> */}
+                                {/* <Route path="/staff" element={<Staff />} /> */}
                                 <Route
                                     path="/members"
                                     element={<UnionMember />}
                                 />
-                                <Route path="/role" element={<Role />} />
+                                <Route path="/news" element={<New />} />
+                                {/* <Route path="/role" element={<Role />} />
                                 <Route
                                     path="/variable"
                                     element={<Variable />}
+                                /> */}
+                                <Route
+                                    path="/"
+                                    element={<Navigate to="/members" replace />}
                                 />
                             </Route>
                         </Route>

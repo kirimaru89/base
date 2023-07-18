@@ -7,7 +7,7 @@ import {
     AddNewBtn,
     RemoveSelectedBtn,
     EditBtn,
-    RemoveBtn
+    RemoveBtn,
 } from "component/common/table/buttons";
 import PemCheck from "component/common/pem_check";
 import Util from "service/helper/util";
@@ -29,8 +29,8 @@ export default function VariableTable() {
             showLoading && Util.toggleGlobalLoading();
             RequestUtil.apiCall(url ? url : urls.crud, params)
                 .then((resp) => {
-                    setLinks(resp.data.links);
-                    setList(Util.appendKey(resp.data.items));
+                    setLinks(resp.links);
+                    setList(Util.appendKey(resp.items));
                 })
                 .finally(() => {
                     setInit(false);
@@ -85,13 +85,13 @@ export default function VariableTable() {
         {
             key: "uid",
             title: labels.uid,
-            dataIndex: "uid"
+            dataIndex: "uid",
         },
         {
             key: "value",
             title: labels.value,
             dataIndex: "value",
-            width: 150
+            width: 150,
         },
         {
             key: "action",
@@ -101,20 +101,22 @@ export default function VariableTable() {
             render: (_text, record) => (
                 <div className="flex-space">
                     <PemCheck pem_group={PEM_GROUP} pem="change">
-                        <EditBtn onClick={() => Dialog.toggle(true, record.id)} />
+                        <EditBtn
+                            onClick={() => Dialog.toggle(true, record.id)}
+                        />
                     </PemCheck>
                     <PemCheck pem_group={PEM_GROUP} pem="delete">
                         <RemoveBtn onClick={() => onDelete(record.id)} />
                     </PemCheck>
                 </div>
-            )
-        }
+            ),
+        },
     ];
 
     const rowSelection = {
         onChange: (ids) => {
             setIds(ids);
-        }
+        },
     };
 
     return (
@@ -137,7 +139,7 @@ export default function VariableTable() {
             <Table
                 rowSelection={{
                     type: "checkbox",
-                    ...rowSelection
+                    ...rowSelection,
                 }}
                 columns={columns}
                 dataSource={list}
@@ -145,7 +147,11 @@ export default function VariableTable() {
                 scroll={{ x: 1000 }}
                 pagination={false}
             />
-            <Pagination next={links.next} prev={links.previous} onChange={getList()} />
+            <Pagination
+                next={links.next}
+                prev={links.previous}
+                onChange={getList()}
+            />
             <Dialog onChange={onChange} />
         </div>
     );

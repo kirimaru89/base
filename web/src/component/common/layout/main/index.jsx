@@ -2,20 +2,20 @@ import * as React from "react";
 import { useState } from "react";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { t } from "ttag";
-import { Layout, Menu, Row, Col, Breadcrumb, theme } from "antd";
+import { Layout, Menu, Row, Col, Breadcrumb, theme, Typography } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
     TeamOutlined,
-    HomeOutlined,
+    FolderOpenOutlined,
 } from "@ant-design/icons";
-import { LOGO_TEXT } from "src/consts";
 import PemUtil from "service/helper/pem_util";
 import NavUtil from "service/helper/nav_util";
 import DropDownProfile from "./dropdown_profile";
 import styles from "./styles.module.css";
-
+import logo from "../../../../assets/svg/logo.svg";
 const { Header, Footer, Sider, Content } = Layout;
+const { Title } = Typography;
 
 /**
  * MainLayout.
@@ -44,29 +44,34 @@ export default function MainLayout() {
 
     function getMenuItems() {
         const result = [];
-        result.push({
-            label: t`Home`,
-            key: "/",
-            icon: <HomeOutlined />,
-        });
-        if (PemUtil.canView(["staff", "group"])) {
-            result.push({
-                label: "Staff",
-                key: "/staff",
-                icon: <TeamOutlined />,
-            });
-        }
-        if (PemUtil.canView(["members", "group"])) {
-            result.push({
-                label: "Quản lý đoàn viên",
-                key: "/members",
-                icon: <TeamOutlined />,
-            });
-        }
+        // result.push({
+        //     label: t`Home`,
+        //     key: "/",
+        //     icon: <HomeOutlined />,
+        // });
+        // if (PemUtil.canView(["staff", "group"])) {
+        //     result.push({
+        //         label: "Staff",
+        //         key: "/staff",
+        //         icon: <TeamOutlined />,
+        //     });
+        // }
+        // if (PemUtil.canView(["members", "group"])) {
+        //     result.push({
+        //         label: "Quản lý đoàn viên",
+        //         key: "/members",
+        //         icon: <TeamOutlined />,
+        //     });
+        // }
         result.push({
             label: "Quản lý đoàn viên",
             key: "/members",
             icon: <TeamOutlined />,
+        });
+        result.push({
+            label: "Quản lý tin tức",
+            key: "/news",
+            icon: <FolderOpenOutlined />,
         });
         return result;
     }
@@ -84,8 +89,12 @@ export default function MainLayout() {
                 onBreakpoint={(broken) => {
                     setCollapsed(broken);
                 }}
+                width={243}
             >
-                <div className="logo">{collapsed || LOGO_TEXT}</div>
+                <div className={styles["box-logo"]}>
+                    <img src={logo}></img>
+                    <Title level={5}>{collapsed || "Tuổi trẻ Đà Nẵng"}</Title>
+                </div>
                 <Menu
                     className="sidebar-nav"
                     defaultSelectedKeys={[

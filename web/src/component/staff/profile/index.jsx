@@ -24,7 +24,7 @@ export default function Profile() {
     const [profileData, setProfileData] = useState(emptyProfile);
     useEffect(() => {
         RequestUtil.apiCall(urls.profile).then((resp) => {
-            setProfileData(resp.data);
+            setProfileData(resp);
         });
     }, []);
     return (

@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const staffOptionsSt = atom({
-    key: "staffOptions",
-    default: {}
+export const unionMemberOptionsSt = atom({
+    key: "unionMemberOptions",
+    default: {},
 });

@@ -9,5 +9,5 @@ import { Input } from "antd";
  * @param {function} props.onChange
  */
 export default function FormInput({ ...res }) {
-    return <Input {...res} size="large" />;
+    return <Input {...res} />;
 }

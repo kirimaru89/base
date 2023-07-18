@@ -13,7 +13,7 @@ export default class RequestUtil {
     static getJsonPayload(data) {
         return {
             data: data,
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         };
     }
 
@@ -30,7 +30,7 @@ export default class RequestUtil {
         }
         return {
             data: formData,
-            "Content-Type": ""
+            "Content-Type": "",
         };
     }
 
@@ -40,7 +40,8 @@ export default class RequestUtil {
      * @returns {boolean}
      */
     static fileInObject(data) {
-        return !!Object.values(data).filter((item) => item instanceof Blob).length;
+        return !!Object.values(data).filter((item) => item instanceof Blob)
+            .length;
     }
 
     /**
@@ -62,8 +63,15 @@ export default class RequestUtil {
      * @param {string} method - method: get, post, put, delete
      * @returns {Promise} Axios response promise
      */
-    static async request(url, params = {}, method = "get", blobResponseType = false) {
-        const { data, "Content-Type": contentType } = RequestUtil.fileInObject(params)
+    static async request(
+        url,
+        params = {},
+        method = "get",
+        blobResponseType = false
+    ) {
+        const { data, "Content-Type": contentType } = RequestUtil.fileInObject(
+            params
+        )
             ? RequestUtil.getFormDataPayload(params)
             : RequestUtil.getJsonPayload(params);
         const token = StorageUtil.getToken();
@@ -74,8 +82,8 @@ export default class RequestUtil {
             headers: {
                 Authorization: token ? `JWT ${token}` : undefined,
                 "Content-Type": contentType,
-                "Accept-Language": StorageUtil.getStorageStr("locale")
-            }
+                "Accept-Language": StorageUtil.getStorageStr("locale"),
+            },
         };
         if (blobResponseType) {
             config.responseType = "blob";
@@ -96,14 +104,24 @@ export default class RequestUtil {
      * @param {string} method - method: get, post, put, delete
      * @returns {Promise} Axios response promise
      */
-    static async apiCall(url, params = {}, method = "get", blobResponseType = false) {
+    static async apiCall(
+        url,
+        params = {},
+        method = "get",
+        blobResponseType = false
+    ) {
         const emptyError = {
             response: {
-                data: {}
-            }
+                data: {},
+            },
         };
         try {
-            return await RequestUtil.request(url, params, method, blobResponseType);
+            return await RequestUtil.request(
+                url,
+                params,
+                method,
+                blobResponseType
+            ).then((res) => (res.data ? res.data : res));
         } catch (err) {
             if (err.response.status === 401) {
                 const refreshUrl = "account/user/refresh-token/";

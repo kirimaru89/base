@@ -36,7 +36,7 @@ export default function RoleDialog({ pems, onChange }) {
             Util.toggleGlobalLoading();
             RequestUtil.apiCall(`${urls.crud}${id}`)
                 .then((resp) => {
-                    setData(resp.data);
+                    setData(resp);
                     setOpen(true);
                 })
                 .finally(() => Util.toggleGlobalLoading(false));
@@ -59,7 +59,11 @@ export default function RoleDialog({ pems, onChange }) {
             maskClosable={false}
             destroyOnClose
             visible={open}
-            okButtonProps={{ form: Form.formName, key: "submit", htmlType: "submit" }}
+            okButtonProps={{
+                form: Form.formName,
+                key: "submit",
+                htmlType: "submit",
+            }}
             okText={t`Save`}
             onCancel={() => Service.toggle(false)}
             cancelText={t`Cancel`}
