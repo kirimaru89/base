@@ -6,9 +6,9 @@ const urlMap = {
         prefix: "account/staff",
         endpoints: {
             crud: "",
-            profile: "profile"
-        }
-    }
+            profile: "profile",
+        },
+    },
 };
 export const urls = RequestUtil.prefixMapValues(urlMap.base);
 
@@ -16,8 +16,9 @@ const headingTxt = t`Staff`;
 const name = headingTxt.toLowerCase();
 export const messages = {
     heading: headingTxt,
+    name: headingTxt,
     deleteOne: t`Do you want to remote this ${name}?`,
-    deleteMultiple: t`Do you want to remote these ${name}?`
+    deleteMultiple: t`Do you want to remote these ${name}?`,
 };
 
 export const emptyRecord = {
@@ -26,7 +27,7 @@ export const emptyRecord = {
     first_name: "",
     email: "",
     phone_number: "",
-    groups: []
+    groups: [],
 };
 
 export const labels = {
@@ -36,5 +37,5 @@ export const labels = {
     email: t`Email`,
     phone_number: t`Phone number`,
     is_active: t`Active`,
-    groups: t`Groups`
+    groups: t`Groups`,
 };
