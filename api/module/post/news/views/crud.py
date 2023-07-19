@@ -24,9 +24,8 @@ class NewsViewSet(GenericViewSet):
 
     def retrieve(self, request, pk=None):
         obj = get_object_or_404(News, pk=pk)
-        # news = obj.objects.values().annotate(model_a_name=F('model_a__name'))
-        news_type_name = obj.news_type.name
-        obj = obj.objects.values('news_type', 'news_type__name')        
+        # news_type_name = obj.news_type.name
+        # obj = obj.objects.values('news_type', 'news_type__name')        
         serializer = NewsSr(obj)
         return RequestService.res(serializer.data)
 

@@ -31,4 +31,5 @@ class Staff(TimeStampedModel):
 
     class Meta:
         db_table = "staffs"
+        app_label = "staff"
         ordering = ["-user"]

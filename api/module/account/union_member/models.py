@@ -16,12 +16,13 @@ from service.framework.model.timestamped_model import TimeStampedModel
 
 class UnionMember(TimeStampedModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=255)
     joined_date = models.DateField(null=True, blank=True)
     gender = models.IntegerField(choices=GENDER_CHOICES, null=True)
-    identity_number = models.CharField(max_length=255)
-    participated_place_id = models.IntegerField()
+    identity_number = models.CharField(max_length=255, null=True, blank=True)
+    participated_place_id = models.IntegerField(null=True, blank=True)
     issued_date = models.DateField(null=True, blank=True)
-    issued_place = models.CharField(max_length=255)
+    issued_place = models.CharField(max_length=255, null=True, blank=True)
     position = models.ForeignKey(
         Position, related_name="union_members", on_delete=models.SET_NULL, null=True, blank=True, default=None,
     )
@@ -52,10 +53,6 @@ class UnionMember(TimeStampedModel):
 
     def __str__(self):
         return f"UnionMember #{self.id} - {self.full_name}"
-
-    @property
-    def full_name(self) -> str:
-        return self.user.full_name
 
     @property
     def email(self) -> str:

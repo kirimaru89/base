@@ -33,7 +33,6 @@ class UnionMemberViewSet(GenericViewSet):
             "items": serializer.data,
             "extra": {}
         }
-
         return self.get_paginated_response(result)
 
     def retrieve(self, request, pk=None):

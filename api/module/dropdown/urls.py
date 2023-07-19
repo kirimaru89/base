@@ -1,9 +1,12 @@
 import os
 from django.urls import path, include
 
+from module.dropdown.views import DropdownView
+
 app_name = os.getcwd().split(os.sep)[-1]
 
 urlpatterns = (
+    path("", DropdownView.as_view(), name="options"),
     path(
         "recipient/",
         include("module.dropdown.recipient.urls", namespace="recipient"),

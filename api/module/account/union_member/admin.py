@@ -1,5 +1,5 @@
 from django.contrib import admin
-# from rangefilter.filter import DateRangeFilter
+from rangefilter.filter import DateRangeFilter
 
 from module.account.union_member.models import UnionMember
 
@@ -12,13 +12,16 @@ class UnionMemberAdmin(admin.ModelAdmin):
     )
     list_display = (
         "__str__",
-        "joined_date",
+        "full_name",
         "gender",
+        "joined_date",
         "identity_number",
     )
     list_filter = (
-        # ("created_at", DateRangeFilter),
-        # ("updated_at", DateRangeFilter),
+        "gender",
+        ("joined_date", DateRangeFilter),
+        ("created_at", DateRangeFilter),
+        ("updated_at", DateRangeFilter),
     )
     search_fields = ("id", "user__email", "user__username")
 

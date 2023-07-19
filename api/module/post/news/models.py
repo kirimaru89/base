@@ -4,12 +4,13 @@ from service.framework.model.timestamped_model import TimeStampedModel
 
 class News(TimeStampedModel):
     news_type = models.ForeignKey("newsType.newsType", on_delete=models.DO_NOTHING)
+    news_category = models.ForeignKey("newsCategory.newsCategory", on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey("staff.staff", on_delete=models.DO_NOTHING, default=1, related_name="created_by")
+    updated_by = models.ForeignKey("staff.staff", on_delete=models.DO_NOTHING, default=1, related_name="updated_by")
     
     title = models.CharField(max_length=255, unique=True)
     content = models.TextField()
     cover_image = models.TextField()
-    created_by = models.IntegerField(default=1)
-    updated_by = models.IntegerField(default=1)
     status = models.SmallIntegerField()
     
     def __str__(self):

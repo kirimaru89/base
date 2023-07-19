@@ -48,6 +48,7 @@ REQUIRED_APPS = [
     "rest_framework.authtoken",
     "rest_auth",
     "phonenumber_field",
+    "rangefilter",
 ]
 
 PROJECT_APPS = [
@@ -60,7 +61,7 @@ PROJECT_APPS = [
     "module.conf.variable",
     "module.dropdown.recipient",
     "module.dropdown.newsType",
-    # "module.dropdown.news_categories",
+    "module.dropdown.newsCategory",
     "module.post.news",
     "module.files.media",
     "module.dropdown.position",
