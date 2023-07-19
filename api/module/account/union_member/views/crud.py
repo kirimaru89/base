@@ -9,6 +9,7 @@ from module.account.union_member.helper.sr import UnionMemberSr
 from module.account.union_member.helper.util import UnionMemberUtil
 from module.account.union_member.models import UnionMember
 from service.request_service import RequestService
+from module.dropdown.helper.utils import DropdownUtils
 
 
 class UnionMemberViewSet(GenericViewSet):
@@ -29,10 +30,12 @@ class UnionMemberViewSet(GenericViewSet):
         queryset = self.paginate_queryset(queryset)
         serializer = UnionMemberSr(queryset, many=True)
 
+        options = DropdownUtils.get_options()
         result = {
             "items": serializer.data,
-            "extra": {}
-        }
+            "extra": { "options": options }
+        }        
+        
         return self.get_paginated_response(result)
 
     def retrieve(self, request, pk=None):
@@ -43,7 +46,10 @@ class UnionMemberViewSet(GenericViewSet):
     @transaction.atomic
     @action(methods=["post"], detail=True)
     def add(self, request):
-        obj = UnionMemberUtil.create_union_member(request.data)
+        data = request.data
+        #TODO: remove hard code
+        data["groups"] = [3]
+        obj = UnionMemberUtil.create_union_member(data)
         sr = UnionMemberSr(obj)
         return RequestService.res(sr.data)
 
