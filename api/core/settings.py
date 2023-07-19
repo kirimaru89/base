@@ -60,7 +60,7 @@ PROJECT_APPS = [
     "module.conf.variable",
     "module.dropdown.recipient",
     "module.dropdown.newsType",
-    "module.dropdown.news_category",
+    # "module.dropdown.news_categories",
     "module.post.news",
     "module.files.media",
     "module.dropdown.position",

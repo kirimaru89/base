@@ -3,8 +3,8 @@ from service.framework.model.timestamped_model import TimeStampedModel
 
 
 class News(TimeStampedModel):
-    news_type = models.ForeignKey("news.newsType", on_delete=models.DO_NOTHING)
-    news_category = models.ForeignKey("news.newsType", on_delete=models.DO_NOTHING)
+    news_type = models.ForeignKey("newsType.newsType", on_delete=models.DO_NOTHING)
+    
     title = models.CharField(max_length=255, unique=True)
     content = models.TextField()
     cover_image = models.TextField()
