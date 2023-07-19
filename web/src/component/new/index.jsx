@@ -12,21 +12,9 @@ import RequestUtil from "service/helper/request_util";
 import Dialog from "./dialog";
 import { newOptionsSt } from "./states";
 import { urls, labels, messages } from "./config";
-const PEM_GROUP = "new";
+const PEM_GROUP = "news";
 const { Title } = Typography;
-const mockupData = [
-    {
-        id: 1,
-        cover_image:
-            "https://phuquoctrip.com/files/images/Others/kinh-nghiem-du-lich-phu-quoc-mua-mua-thumbnail.jpg",
-        title: "Kinh nghiệm du lịch phú quốc",
-        category: "Du lịch",
-        type: "Tin nổi bật",
-        created_at: "14:14:59 14/11/2022",
-        created_by: "Dat Le",
-        status: 1,
-    },
-];
+
 export default function New() {
     const table = useRef();
     const dialog = useRef();

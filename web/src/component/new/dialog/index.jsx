@@ -45,7 +45,7 @@ const newDialog = forwardRef(({ onChange }, ref) => {
             okText={t`Save`}
             onCancel={() => setOpen(false)}
             cancelText={t`Cancel`}
-            width={800}
+            width={1000}
             title={
                 <span style={{ fontWeight: 700, lineHeight: 1.75 }}>
                     {Util.getDialogTitle(id, messages)}

@@ -68,12 +68,11 @@ export default function newForm({ data, onChange }) {
         cover_image: {
             name: "cover_image",
             label: labels.cover_image,
-            rules: [FormUtil.ruleRequired()],
+            // rules: [FormUtil.ruleRequired()],
         },
         content: {
             name: "content",
             label: labels.content,
-            rules: [FormUtil.ruleRequired()],
         },
         status: {
             name: "status",

@@ -11,7 +11,7 @@ import RequestUtil from "service/helper/request_util";
 import Dialog from "./dialog";
 import { unionMemberOptionsSt } from "./states";
 import { urls, labels, messages } from "./config";
-const PEM_GROUP = "unionMember";
+const PEM_GROUP = "unionmember";
 const { Title } = Typography;
 
 export default function UnionMember() {

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { t } from "ttag";
 import { Layout, Menu, Row, Col, Breadcrumb, theme, Typography } from "antd";
@@ -21,9 +21,13 @@ const { Title } = Typography;
  * MainLayout.
  */
 export default function MainLayout() {
-    const navigate = useNavigate();
     const location = useLocation();
-
+    const [breadcrumb, setBreadcrumb] = useState([]);
+    useEffect(() => {
+        let item = getMenuItems().find((x) => x.key == location.pathname);
+        setBreadcrumb([{ title: "Trang chủ" }, { title: item.label }]);
+    }, [location]);
+    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
     const toggle = () => {
         setCollapsed(!collapsed);
@@ -38,41 +42,25 @@ export default function MainLayout() {
      * @returns {string}
      */
     function processSelectedKey(pathname) {
-        if (pathname.startsWith("/")) return "/";
         return pathname;
     }
 
     function getMenuItems() {
         const result = [];
-        // result.push({
-        //     label: t`Home`,
-        //     key: "/",
-        //     icon: <HomeOutlined />,
-        // });
-        // if (PemUtil.canView(["staff", "group"])) {
-        //     result.push({
-        //         label: "Staff",
-        //         key: "/staff",
-        //         icon: <TeamOutlined />,
-        //     });
-        // }
-        // if (PemUtil.canView(["members", "group"])) {
-        //     result.push({
-        //         label: "Quản lý đoàn viên",
-        //         key: "/members",
-        //         icon: <TeamOutlined />,
-        //     });
-        // }
-        result.push({
-            label: "Quản lý đoàn viên",
-            key: "/members",
-            icon: <TeamOutlined />,
-        });
-        result.push({
-            label: "Quản lý tin tức",
-            key: "/news",
-            icon: <FolderOpenOutlined />,
-        });
+        if (PemUtil.canView(["unionmember", "group"])) {
+            result.push({
+                label: "Quản lý đoàn viên",
+                key: "/members",
+                icon: <TeamOutlined />,
+            });
+        }
+        if (PemUtil.canView(["news", "group"])) {
+            result.push({
+                label: "Quản lý tin tức",
+                key: "/news",
+                icon: <FolderOpenOutlined />,
+            });
+        }
         return result;
     }
     const {
@@ -139,25 +127,12 @@ export default function MainLayout() {
                         style={{
                             margin: "0.5rem 0",
                         }}
-                        items={[
-                            {
-                                title: "Trang chủ",
-                            },
-                            {
-                                title: <a href="">{document.title}</a>,
-                            },
-                            {
-                                title: <a href="">Application List</a>,
-                            },
-                            {
-                                title: "An Application",
-                            },
-                        ]}
+                        items={breadcrumb}
                     />
                     <Outlet />
                 </Content>
                 <Footer className="layout-footer">
-                    Copyright base.test 2022
+                    Copyright Tuổi trẻ Đà Nẵng 2023
                 </Footer>
             </Layout>
         </Layout>
