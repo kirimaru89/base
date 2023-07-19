@@ -70,6 +70,8 @@ services:
       volumes:
         - ../web:/code:delegated
         - /code/node_modules
+      ports:
+        - "3000:3000"
       tty: ${DOCKER_TTY}
 
     dnyouth_nginx:
