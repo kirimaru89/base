@@ -1,0 +1,2 @@
+class NewsTypeUtil:
+    pass

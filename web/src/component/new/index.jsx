@@ -17,7 +17,7 @@ const { Title } = Typography;
 const mockupData = [
     {
         id: 1,
-        thumbnail:
+        cover_image:
             "https://phuquoctrip.com/files/images/Others/kinh-nghiem-du-lich-phu-quoc-mua-mua-thumbnail.jpg",
         title: "Kinh nghiệm du lịch phú quốc",
         category: "Du lịch",
@@ -54,7 +54,7 @@ export default function New() {
                 setnewOptions(res.extra.options);
             })
             .catch(() => {
-                setList(mockupData);
+                // setList(mockupData);
             })
             .finally(() => {
                 setLoading(false);
@@ -117,9 +117,9 @@ export default function New() {
             width: 60,
         },
         {
-            key: "thumbnail",
-            title: labels.thumbnail,
-            dataIndex: "thumbnail",
+            key: "cover_image",
+            title: labels.cover_image,
+            dataIndex: "cover_image",
             render: (_text, record) => {
                 return <Image type="thumbnail" url={_text} />;
             },
@@ -136,9 +136,9 @@ export default function New() {
             dataIndex: "category",
         },
         {
-            key: "type",
-            title: labels.type,
-            dataIndex: "type",
+            key: "news_type_name",
+            title: labels.news_type_name,
+            dataIndex: "news_type_name",
         },
         {
             key: "created_at",

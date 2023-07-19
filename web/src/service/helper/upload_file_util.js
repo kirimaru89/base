@@ -27,15 +27,15 @@ export default class UploadFileUtil {
                 dataImage.width = e.target.width;
             };
         }
-        const formData = { file: fileToUpload, path: folder };
+        const formData = { image: fileToUpload, path: folder };
         try {
             const res = await RequestUtil.apiCall(
-                "files/upload",
+                "files/media/upload-image",
                 formData,
                 "post"
             );
             let model = {
-                path: res.data,
+                path: res.image_path,
                 file_name: fileToUpload.name,
                 ...dataImage,
             };

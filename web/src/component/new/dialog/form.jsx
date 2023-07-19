@@ -42,7 +42,7 @@ export default function newForm({ data, onChange }) {
     const newOptions = useRecoilValue(newOptionsSt);
     const [link, setLink] = useState("");
     useEffect(() => {
-        setLink(data.thumbnail || "");
+        setLink(data.cover_image || "");
     }, [data]);
     const initialValues = Util.isEmpty(data) ? emptyRecord : { ...data };
     const id = initialValues.id;
@@ -60,19 +60,20 @@ export default function newForm({ data, onChange }) {
             label: labels.category,
             rules: [FormUtil.ruleRequired()],
         },
-        type: {
-            name: "type",
-            label: labels.type,
+        news_type: {
+            name: "news_type",
+            label: labels.news_type,
             rules: [FormUtil.ruleRequired()],
         },
-        thumbnail: {
-            name: "thumbnail",
-            label: labels.thumbnail,
+        cover_image: {
+            name: "cover_image",
+            label: labels.cover_image,
             rules: [FormUtil.ruleRequired()],
         },
         content: {
             name: "content",
             label: labels.content,
+            rules: [FormUtil.ruleRequired()],
         },
         status: {
             name: "status",
@@ -80,8 +81,8 @@ export default function newForm({ data, onChange }) {
         },
     };
     const setUrl = (e) => {
-        form.setFieldsValue({ ...form.getFieldValue(), thumbnail: e.url });
-        setLink(e.url);
+        form.setFieldsValue({ ...form.getFieldValue(), cover_image: e.path });
+        setLink(e.path);
     };
     const upload = () => {
         UploadFileUtil.upload("*", "task", setUrl);
@@ -112,14 +113,14 @@ export default function newForm({ data, onChange }) {
                     blankLabel={formAttrs.category.label}
                 />
             </Form.Item>
-            <Form.Item {...formAttrs.type}>
+            <Form.Item {...formAttrs.news_type}>
                 <SelectInput
                     block
                     options={typeArray}
-                    blankLabel={formAttrs.type.label}
+                    blankLabel={formAttrs.news_type.label}
                 />
             </Form.Item>
-            <Form.Item {...formAttrs.thumbnail}>
+            <Form.Item {...formAttrs.cover_image}>
                 <Space size={12}>
                     <Button onClick={upload}>Tải ảnh lên</Button>
                     <div style={{ width: 150 }}>

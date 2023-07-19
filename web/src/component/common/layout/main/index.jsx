@@ -141,10 +141,10 @@ export default function MainLayout() {
                         }}
                         items={[
                             {
-                                title: "Home",
+                                title: "Trang chủ",
                             },
                             {
-                                title: <a href="">Application Center</a>,
+                                title: <a href="">{document.title}</a>,
                             },
                             {
                                 title: <a href="">Application List</a>,

@@ -7,4 +7,5 @@ urlpatterns = (
     path("user/", include("module.account.user.urls", namespace="user")),
     path("staff/", include("module.account.staff.urls", namespace="staff")),
     path("role/", include("module.account.role.urls", namespace="role")),
+    path("union-member/", include("module.account.union_member.urls", namespace="union_member")),
 )

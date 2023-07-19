@@ -20,6 +20,8 @@ from django.utils.log import DEFAULT_LOGGING
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/app/media'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -54,8 +56,22 @@ PROJECT_APPS = [
     "module.account.user",
     "module.account.staff",
     "module.account.role",
+    "module.account.union_member",
     "module.conf.variable",
     "module.dropdown.recipient",
+    "module.dropdown.newsType",
+    "module.dropdown.news_category",
+    "module.post.news",
+    "module.files.media",
+    "module.dropdown.position",
+    "module.dropdown.ethnic",
+    "module.dropdown.religion",
+    "module.dropdown.occupation",
+    "module.dropdown.education_level",
+    "module.dropdown.qualification",
+    "module.dropdown.it_level",
+    "module.dropdown.foreign_language_level",
+    "module.dropdown.political_theory_level",
 ]
 
 INSTALLED_APPS = REQUIRED_APPS + PROJECT_APPS

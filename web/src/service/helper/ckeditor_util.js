@@ -1,4 +1,6 @@
 import RequestUtil from "./request_util";
+import StorageUtil from "service/helper/storage_util";
+
 export default class EditorUpload {
     loader = undefined;
     xhr = undefined;
@@ -24,10 +26,12 @@ export default class EditorUpload {
         }
     }
     _initRequest() {
+        let token = StorageUtil.getToken();
         const xhr = (this.xhr = new XMLHttpRequest());
-        xhr.open("POST", RequestUtil.getApiBaseUrl() + "files/upload", true); // TODO change the URL
+        xhr.open("POST", RequestUtil.getApiBaseUrl() + "files/media/upload-image", true); // TODO change the URL
         xhr.responseType = "json";
         xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Authorization", token ? `JWT ${token}` : undefined);
     }
     _initListeners(resolve, reject, file) {
         const xhr = this.xhr;
@@ -45,7 +49,7 @@ export default class EditorUpload {
                 );
             }
             resolve({
-                default: response.path,
+                default: response.image_path,
             });
         });
         if (xhr.upload) {
@@ -59,7 +63,7 @@ export default class EditorUpload {
     }
     _sendRequest(file) {
         const data = new FormData();
-        data.append("file", file);
+        data.append("image", file);
         data.append("path", this.path);
         data.append("type", "image");
         this.xhr.send(data);

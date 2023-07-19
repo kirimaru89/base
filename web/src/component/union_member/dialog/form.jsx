@@ -167,34 +167,34 @@ export default function UnionMemberForm({ data, onChange }) {
                 <Input />
             </Form.Item>
             <Form.Item {...formAttrs.ethnic_id}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
             <Form.Item {...formAttrs.religion_id}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
             <Form.Item {...formAttrs.occupation_id}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
             <Title level={5}>Thông tin Đoàn</Title>
             <Form.Item {...formAttrs.position_id}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
             <Form.Item {...formAttrs.joined_date}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
             <Text strong>Nơi sinh hoạt Đoàn</Text>
             <Title level={5}>Thông tin học vấn</Title>
             <Form.Item {...formAttrs.education_level_id}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
             <Form.Item {...formAttrs.qualification_id}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
             <Form.Item {...formAttrs.it_level}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
             <Form.Item {...formAttrs.political_theory_level}>
-                <SelectInput options={unionMemberOptions.group} block />
+                <SelectInput options={[]} block />
             </Form.Item>
         </Form>
     );

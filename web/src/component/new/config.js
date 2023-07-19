@@ -3,7 +3,7 @@ import RequestUtil from "service/helper/request_util";
 
 const urlMap = {
     base: {
-        prefix: "account/new",
+        prefix: "post/news",
         endpoints: {
             crud: "",
             updateStatus: "status",
@@ -23,10 +23,10 @@ export const messages = {
 
 export const emptyRecord = {
     id: 0,
-    thumbnail: "",
+    cover_image: "",
     title: "",
     category: "",
-    type: "",
+    news_type: "",
     created_at: "",
     created_by: "",
     status: 1,
@@ -35,9 +35,10 @@ export const emptyRecord = {
 
 export const labels = {
     title: t`Tiêu đề`,
-    thumbnail: t`Ảnh đại diện`,
+    cover_image: t`Ảnh đại diện`,
     category: t`Danh mục`,
-    type: t`Kiểu tin tức`,
+    news_type: t`Kiểu tin tức`,
+    news_type_name: t`Tên kiểu tin tức`,
     created_at: t`Thời gian đăng`,
     created_by: t`Người đăng`,
     status: t`Trạng thái`,

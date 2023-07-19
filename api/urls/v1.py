@@ -14,4 +14,12 @@ urlpatterns = (
         "dropdown/",
         include("module.dropdown.urls", namespace="dropdown"),
     ),
+    path(
+        "post/",
+        include("module.post.urls", namespace="post"),
+    ),
+    path(
+        "files/",
+        include("module.files.urls", namespace="files"),
+    ),
 )
