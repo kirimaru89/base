@@ -119,9 +119,9 @@ export default function New() {
             dataIndex: "title",
         },
         {
-            key: "category",
-            title: labels.category,
-            dataIndex: "category",
+            key: "news_category_name",
+            title: labels.news_category_name,
+            dataIndex: "news_category_name",
         },
         {
             key: "news_type_name",
@@ -134,9 +134,9 @@ export default function New() {
             dataIndex: "created_at",
         },
         {
-            key: "created_by",
-            title: labels.created_by,
-            dataIndex: "created_by",
+            key: "created_by_user",
+            title: labels.created_by_user,
+            dataIndex: "created_by_user",
         },
         {
             key: "status",
@@ -188,7 +188,7 @@ export default function New() {
                 extra={
                     <SearchInput
                         onChange={searchList}
-                        placeholder="Tìm kiếm đoàn viên theo tên, email, số điện thoại..."
+                        placeholder="Tìm kiếm tin tức tiêu đề"
                         width="400px"
                     />
                 }

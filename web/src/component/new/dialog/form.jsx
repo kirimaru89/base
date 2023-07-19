@@ -55,9 +55,9 @@ export default function newForm({ data, onChange }) {
             label: labels.title,
             rules: [FormUtil.ruleRequired()],
         },
-        category: {
-            name: "category",
-            label: labels.category,
+        news_category: {
+            name: "news_category",
+            label: labels.news_category,
             rules: [FormUtil.ruleRequired()],
         },
         news_type: {
@@ -68,11 +68,12 @@ export default function newForm({ data, onChange }) {
         cover_image: {
             name: "cover_image",
             label: labels.cover_image,
-            // rules: [FormUtil.ruleRequired()],
+            rules: [FormUtil.ruleRequired()],
         },
         content: {
             name: "content",
             label: labels.content,
+            rules: [FormUtil.ruleRequired()],
         },
         status: {
             name: "status",
@@ -105,11 +106,11 @@ export default function newForm({ data, onChange }) {
             <Form.Item {...formAttrs.title}>
                 <Input />
             </Form.Item>
-            <Form.Item {...formAttrs.category}>
+            <Form.Item {...formAttrs.news_category}>
                 <SelectInput
                     block
                     options={categoryArray}
-                    blankLabel={formAttrs.category.label}
+                    blankLabel={formAttrs.news_category.label}
                 />
             </Form.Item>
             <Form.Item {...formAttrs.news_type}>

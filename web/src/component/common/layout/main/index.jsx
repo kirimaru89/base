@@ -25,7 +25,7 @@ export default function MainLayout() {
     const [breadcrumb, setBreadcrumb] = useState([]);
     useEffect(() => {
         let item = getMenuItems().find((x) => x.key == location.pathname);
-        setBreadcrumb([{ title: "Trang chủ" }, { title: item.label }]);
+        setBreadcrumb([{ title: "Trang chủ" }, { title: item?.label }]);
     }, [location]);
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
