@@ -7,6 +7,7 @@ import FormUtil from "service/helper/form_util";
 import SelectInput from "component/common/form/ant/input/select_input.jsx";
 import Input from "component/common/form/ant/input";
 import { urls, labels, emptyRecord } from "../config";
+import { notification } from "antd";
 import { newOptionsSt } from "../states";
 import Image from "component/common/image";
 import { STATUS_ARRAY } from "consts";
@@ -99,8 +100,24 @@ export default function newForm({ data, onChange }) {
             initialValues={{ ...initialValues }}
             onFinish={(payload) => {
                 return FormUtil.submit(endPoint, payload, method)
-                    .then((data) => onChange(data, id))
-                    .catch(FormUtil.setFormErrors(form));
+                    .then((data) => {
+                        notification.success({
+                            message:
+                                (data.id ? "Chỉnh sửa" : "Thêm mới") +
+                                " tin tức thành công",
+                            duration: 8,
+                        });
+                        return onChange(data, id);
+                    })
+                    .catch((err) => {
+                        notification.error({
+                            message:
+                                (data.id ? "Chỉnh sửa" : "Thêm mới") +
+                                " tin tức thất bại",
+                            duration: 8,
+                        });
+                        FormUtil.setFormErrors(form);
+                    });
             }}
         >
             <Form.Item {...formAttrs.title}>

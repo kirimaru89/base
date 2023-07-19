@@ -5,6 +5,7 @@ import { Card, Typography, Space, Switch } from "antd";
 import Image from "component/common/image";
 import SearchInput from "component/common/table/search_input";
 import CommonTable from "component/common/table";
+import moment from "moment";
 import { AddNewBtn, EditBtn, RemoveBtn } from "component/common/table/buttons";
 import PemCheck from "component/common/pem_check";
 import Util from "service/helper/util";
@@ -73,14 +74,15 @@ export default function New() {
     };
 
     const onChange = (data, id) => {
-        if (!id) {
-            setList([{ ...data, key: data.id }, ...list]);
-        } else {
-            const index = list.findIndex((item) => item.id === id);
-            data.key = data.id;
-            list[index] = data;
-            setList([...list]);
-        }
+        getList();
+        // if (!id) {
+        //     setList([{ ...data, key: data.id }, ...list]);
+        // } else {
+        //     const index = list.findIndex((item) => item.id === id);
+        //     data.key = data.id;
+        //     list[index] = data;
+        //     setList([...list]);
+        // }
     };
     const onChangeStatus = (e, data) => {
         RequestUtil.apiCall(
@@ -132,6 +134,9 @@ export default function New() {
             key: "created_at",
             title: labels.created_at,
             dataIndex: "created_at",
+            render: (_text, record) => (
+                <span>{moment(_text).format("DD/MM/yyyy HH:mm")}</span>
+            ),
         },
         {
             key: "created_by_user",

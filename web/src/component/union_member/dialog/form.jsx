@@ -7,6 +7,7 @@ import SelectInput from "component/common/form/ant/input/select_input.jsx";
 import DateInput from "component/common/form/ant/input/date_input.jsx";
 import Input from "component/common/form/ant/input";
 import { urls, labels, emptyRecord } from "../config";
+import { notification } from "antd";
 import { unionMemberOptionsSt } from "../states";
 const { Title, Text } = Typography;
 /**
@@ -28,8 +29,49 @@ const formName = "UnionMemberForm";
  */
 export default function UnionMemberForm({ data, onChange }) {
     const [form] = Form.useForm();
-    const unionMemberOptions = useRecoilValue(unionMemberOptionsSt);
+    const convertData = (arr) => {
+        return arr.map((x) => ({ value: x.id, label: x.name }));
+    };
+    let participated_city = [{ id: 1, name: "Đà Nẵng" }];
+    let participated_district = [
+        { id: 1, name: "Bộ Chỉ huy Quân sự Thành phố Đà Nẵng" },
 
+        { id: 2, name: "Công an thành phố Đà Nẵng" },
+
+        { id: 3, name: "Đoàn ĐH Đà Nẵng" },
+
+        { id: 4, name: "Huyện Đoàn Hòa Vang" },
+
+        { id: 5, name: "Quận Đoàn Cẩm Lệ" },
+
+        { id: 6, name: "Quận Đoàn Hải Châu" },
+
+        { id: 7, name: "Quận Đoàn Liên Chiểu" },
+    ];
+
+    const unionMemberOptions = useRecoilValue(unionMemberOptionsSt);
+    let {
+        religion,
+        position,
+        ethnic,
+        occupation,
+        education_level,
+        qualification,
+        it_level,
+        foreign_language_level,
+        political_theory_level,
+    } = unionMemberOptions;
+    position = convertData(position);
+    religion = convertData(religion);
+    ethnic = convertData(ethnic);
+    occupation = convertData(occupation);
+    education_level = convertData(education_level);
+    qualification = convertData(qualification);
+    it_level = convertData(it_level);
+    foreign_language_level = convertData(foreign_language_level);
+    political_theory_level = convertData(political_theory_level);
+    participated_city = convertData(participated_city);
+    participated_district = convertData(participated_district);
     const initialValues = Util.isEmpty(data) ? emptyRecord : { ...data };
     const id = initialValues.id;
     const endPoint = id ? `${urls.crud}${id}` : urls.crud;
@@ -55,13 +97,13 @@ export default function UnionMemberForm({ data, onChange }) {
             name: "identity_number",
             label: labels.identity_number,
         },
-        issue_date: {
-            name: "issue_date",
-            label: labels.issue_date,
+        issued_date: {
+            name: "issued_date",
+            label: labels.issued_date,
         },
-        issue_place: {
-            name: "issue_place",
-            label: labels.issue_place,
+        issued_place: {
+            name: "issued_place",
+            label: labels.issued_place,
         },
         date_of_birth: {
             name: "date_of_birth",
@@ -71,21 +113,21 @@ export default function UnionMemberForm({ data, onChange }) {
             name: "gender",
             label: labels.gender,
         },
-        participated_city_id: {
-            name: "participated_city_id",
-            label: labels.participated_city_id,
+        participated_city: {
+            name: "participated_city",
+            label: labels.participated_city,
         },
-        participated_district_id: {
-            name: "participated_district_id",
-            label: labels.participated_district_id,
+        participated_district: {
+            name: "participated_district",
+            label: labels.participated_district,
         },
-        participated_chapter_id: {
-            name: "participated_chapter_id",
-            label: labels.participated_chapter_id,
+        participated_chapter: {
+            name: "participated_chapter",
+            label: labels.participated_chapter,
         },
-        participated_grassroots_id: {
-            name: "participated_grassroots_id",
-            label: labels.participated_grassroots_id,
+        participated_grassroots: {
+            name: "participated_grassroots",
+            label: labels.participated_grassroots,
         },
         place_of_origin: {
             name: "place_of_origin",
@@ -95,33 +137,33 @@ export default function UnionMemberForm({ data, onChange }) {
             name: "place_of_residence",
             label: labels.place_of_residence,
         },
-        ethnic_id: {
-            name: "ethnic_id",
-            label: labels.ethnic_id,
+        ethnic: {
+            name: "ethnic",
+            label: labels.ethnic,
         },
-        religion_id: {
-            name: "religion_id",
-            label: labels.religion_id,
+        religion: {
+            name: "religion",
+            label: labels.religion,
         },
-        occupation_id: {
-            name: "occupation_id",
-            label: labels.occupation_id,
+        occupation: {
+            name: "occupation",
+            label: labels.occupation,
         },
-        position_id: {
-            name: "position_id",
-            label: labels.position_id,
+        position: {
+            name: "position",
+            label: labels.position,
         },
         joined_date: {
             name: "joined_date",
             label: labels.joined_date,
         },
-        education_level_id: {
-            name: "education_level_id",
-            label: labels.education_level_id,
+        education_level: {
+            name: "education_level",
+            label: labels.education_level,
         },
-        qualification_id: {
-            name: "qualification_id",
-            label: labels.qualification_id,
+        qualification: {
+            name: "qualification",
+            label: labels.qualification,
         },
         it_level: {
             name: "it_level",
@@ -130,6 +172,10 @@ export default function UnionMemberForm({ data, onChange }) {
         political_theory_level: {
             name: "political_theory_level",
             label: labels.political_theory_level,
+        },
+        foreign_language_level: {
+            name: "foreign_language_level",
+            label: labels.foreign_language_level,
         },
     };
 
@@ -144,8 +190,25 @@ export default function UnionMemberForm({ data, onChange }) {
             initialValues={{ ...initialValues }}
             onFinish={(payload) => {
                 return FormUtil.submit(endPoint, payload, method)
-                    .then((data) => onChange(data, id))
-                    .catch(FormUtil.setFormErrors(form));
+                    .then((data) => {
+                        notification.success({
+                            message:
+                                (data.id ? "Chỉnh sửa" : "Thêm mới") +
+                                " đoàn viên thành công",
+                            duration: 8,
+                        });
+                        return onChange(data, id);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        notification.error({
+                            message:
+                                (data.id ? "Chỉnh sửa" : "Thêm mới") +
+                                " đoàn viên thất bại",
+                            duration: 8,
+                        });
+                        FormUtil.setFormErrors(form);
+                    });
             }}
         >
             <Title level={5}>Thông tin cá nhân</Title>
@@ -161,10 +224,10 @@ export default function UnionMemberForm({ data, onChange }) {
             <Form.Item {...formAttrs.identity_number}>
                 <Input />
             </Form.Item>
-            <Form.Item {...formAttrs.issue_date}>
+            <Form.Item {...formAttrs.issued_date}>
                 <DateInput />
             </Form.Item>
-            <Form.Item {...formAttrs.issue_place}>
+            <Form.Item {...formAttrs.issued_place}>
                 <Input />
             </Form.Item>
             <Form.Item {...formAttrs.date_of_birth}>
@@ -182,47 +245,103 @@ export default function UnionMemberForm({ data, onChange }) {
             <Form.Item {...formAttrs.place_of_residence}>
                 <Input />
             </Form.Item>
-            <Form.Item {...formAttrs.ethnic_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.ethnic}>
+                <SelectInput
+                    options={ethnic}
+                    block
+                    blankLabel={formAttrs.ethnic.label}
+                />
             </Form.Item>
-            <Form.Item {...formAttrs.religion_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.religion}>
+                <SelectInput
+                    options={religion}
+                    block
+                    blankLabel={formAttrs.religion.label}
+                />
             </Form.Item>
-            <Form.Item {...formAttrs.occupation_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.occupation}>
+                <SelectInput
+                    options={occupation}
+                    block
+                    blankLabel={formAttrs.occupation.label}
+                />
             </Form.Item>
             <Title level={5}>Thông tin Đoàn</Title>
-            <Form.Item {...formAttrs.position_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.position}>
+                <SelectInput
+                    options={position}
+                    block
+                    blankLabel={formAttrs.position.label}
+                />
             </Form.Item>
             <Form.Item {...formAttrs.joined_date}>
                 <DateInput />
             </Form.Item>
             <Text strong>Nơi sinh hoạt Đoàn</Text>
-            <Form.Item {...formAttrs.participated_city_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.participated_city}>
+                <SelectInput
+                    options={participated_city}
+                    block
+                    disabled
+                    blankLabel={formAttrs.participated_city.label}
+                />
             </Form.Item>
-            <Form.Item {...formAttrs.participated_district_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.participated_district}>
+                <SelectInput
+                    options={participated_district}
+                    block
+                    blankLabel={formAttrs.participated_district.label}
+                />
             </Form.Item>
-            <Form.Item {...formAttrs.participated_chapter_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.participated_chapter}>
+                <SelectInput
+                    options={[]}
+                    block
+                    blankLabel={formAttrs.participated_chapter.label}
+                />
             </Form.Item>
-            <Form.Item {...formAttrs.participated_grassroots_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.participated_grassroots}>
+                <SelectInput
+                    options={[]}
+                    block
+                    blankLabel={formAttrs.participated_grassroots.label}
+                />
             </Form.Item>
             <Title level={5}>Thông tin học vấn</Title>
-            <Form.Item {...formAttrs.education_level_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.education_level}>
+                <SelectInput
+                    options={education_level}
+                    block
+                    blankLabel={formAttrs.education_level.label}
+                />
             </Form.Item>
-            <Form.Item {...formAttrs.qualification_id}>
-                <SelectInput options={[]} block />
+            <Form.Item {...formAttrs.qualification}>
+                <SelectInput
+                    options={qualification}
+                    block
+                    blankLabel={formAttrs.qualification.label}
+                />
             </Form.Item>
             <Form.Item {...formAttrs.it_level}>
-                <SelectInput options={[]} block />
+                <SelectInput
+                    options={it_level}
+                    block
+                    blankLabel={formAttrs.it_level.label}
+                />
             </Form.Item>
             <Form.Item {...formAttrs.political_theory_level}>
-                <SelectInput options={[]} block />
+                <SelectInput
+                    options={political_theory_level}
+                    block
+                    blankLabel={formAttrs.political_theory_level.label}
+                />
+            </Form.Item>
+            <Form.Item {...formAttrs.foreign_language_level}>
+                <SelectInput
+                    options={foreign_language_level}
+                    block
+                    blankLabel={formAttrs.foreign_language_level.label}
+                />
             </Form.Item>
         </Form>
     );

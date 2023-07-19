@@ -82,14 +82,15 @@ export default function UnionMember() {
     };
 
     const onChange = (data, id) => {
-        if (!id) {
-            setList([{ ...data, key: data.id }, ...list]);
-        } else {
-            const index = list.findIndex((item) => item.id === id);
-            data.key = data.id;
-            list[index] = data;
-            setList([...list]);
-        }
+        getList();
+        // if (!id) {
+        //     setList([{ ...data, key: data.id }, ...list]);
+        // } else {
+        //     const index = list.findIndex((item) => item.id === id);
+        //     data.key = data.id;
+        //     list[index] = data;
+        //     setList([...list]);
+        // }
     };
 
     const columns = [
@@ -125,9 +126,9 @@ export default function UnionMember() {
             dataIndex: "gender",
         },
         {
-            key: "address_union",
-            title: labels.address_union,
-            dataIndex: "address_union",
+            key: "participated_grassroots",
+            title: labels.participated_grassroots,
+            dataIndex: "participated_grassroots",
         },
         {
             key: "action",

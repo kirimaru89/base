@@ -31,7 +31,7 @@ export default function TreeCheckInput({
 
         const blankOption = {
             value: "",
-            label: `--- ${blankLabel} ---`,
+            label: `Chọn ${blankLabel.toLowerCase()}`,
         };
         return [blankOption, ...options];
     }

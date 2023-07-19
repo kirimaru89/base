@@ -1,7 +1,8 @@
 import * as React from "react";
 import { DatePicker } from "antd";
 import { DATE_REABLE_FORMAT } from "service/helper/util";
-
+import moment from "moment";
+import dayjs from "dayjs";
 /**
  * DateInput.
  *
@@ -14,7 +15,7 @@ import { DATE_REABLE_FORMAT } from "service/helper/util";
 export default function DateInput({ value, onChange }) {
     return (
         <DatePicker
-            value={value}
+            value={value ? dayjs(value) : ""}
             onChange={onChange}
             format={DATE_REABLE_FORMAT}
             style={{ width: "100%" }}

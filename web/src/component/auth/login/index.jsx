@@ -46,8 +46,8 @@ export default function Login() {
                             Đăng nhập
                         </strong>
                         <p style={{ color: "#321e1e" }}>
-                            Chào mừng! Vui lòng tên người dùng và mật khẩu để
-                            đăng nhập vào trang quản lý nội dung Tuổi trẻ Đà
+                            Chào mừng! Vui lòng nhập tên người dùng và mật khẩu
+                            để đăng nhập vào trang quản lý nội dung Tuổi trẻ Đà
                             Nẵng.
                         </p>
                         <Form onChange={handleLogin}>
