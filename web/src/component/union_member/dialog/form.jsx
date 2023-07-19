@@ -71,9 +71,25 @@ export default function UnionMemberForm({ data, onChange }) {
             name: "gender",
             label: labels.gender,
         },
-        participated_place_id: {
-            name: "participated_place_id",
-            label: labels.participated_place_id,
+        participated_city_id: {
+            name: "participated_city_id",
+            label: labels.participated_city_id,
+        },
+        participated_district_id: {
+            name: "participated_district_id",
+            label: labels.participated_district_id,
+        },
+        participated_chapter_id: {
+            name: "participated_chapter_id",
+            label: labels.participated_chapter_id,
+        },
+        participated_grassroots_id: {
+            name: "participated_grassroots_id",
+            label: labels.participated_grassroots_id,
+        },
+        place_of_origin: {
+            name: "place_of_origin",
+            label: labels.place_of_origin,
         },
         place_of_residence: {
             name: "place_of_residence",
@@ -160,7 +176,7 @@ export default function UnionMemberForm({ data, onChange }) {
                     <Radio value={2}>Nữ</Radio>
                 </Radio.Group>
             </Form.Item>
-            <Form.Item {...formAttrs.participated_place_id}>
+            <Form.Item {...formAttrs.place_of_origin}>
                 <Input />
             </Form.Item>
             <Form.Item {...formAttrs.place_of_residence}>
@@ -180,9 +196,21 @@ export default function UnionMemberForm({ data, onChange }) {
                 <SelectInput options={[]} block />
             </Form.Item>
             <Form.Item {...formAttrs.joined_date}>
-                <SelectInput options={[]} block />
+                <DateInput />
             </Form.Item>
             <Text strong>Nơi sinh hoạt Đoàn</Text>
+            <Form.Item {...formAttrs.participated_city_id}>
+                <SelectInput options={[]} block />
+            </Form.Item>
+            <Form.Item {...formAttrs.participated_district_id}>
+                <SelectInput options={[]} block />
+            </Form.Item>
+            <Form.Item {...formAttrs.participated_chapter_id}>
+                <SelectInput options={[]} block />
+            </Form.Item>
+            <Form.Item {...formAttrs.participated_grassroots_id}>
+                <SelectInput options={[]} block />
+            </Form.Item>
             <Title level={5}>Thông tin học vấn</Title>
             <Form.Item {...formAttrs.education_level_id}>
                 <SelectInput options={[]} block />
