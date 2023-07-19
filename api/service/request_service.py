@@ -40,8 +40,8 @@ class RequestService:
                 "user_type": "staff" if hasattr(user, "staff") else "",
             }
 
-            if not data["user_type"]:
-                raise ValidationError({"detail": error_message})
+            # if not data["user_type"]:
+            #     raise ValidationError({"detail": error_message})
 
             user.refresh_token_signature = TokenService.get_token_signature(
                 refresh_token

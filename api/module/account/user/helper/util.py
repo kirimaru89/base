@@ -15,7 +15,7 @@ class UserUtil:
     @staticmethod
     def create_user(data: dict) -> query_obj:
         if not data.get("password"):
-            data["password"] = StringService.get_random_digits(12)
+            data["password"] = "SamplePassword123!@#" #StringService.get_random_digits(12)
         sr = UserSr(data=data)
         sr.is_valid(raise_exception=True)
         user = sr.save()
