@@ -8,6 +8,7 @@ import { AddNewBtn, EditBtn, RemoveBtn } from "component/common/table/buttons";
 import PemCheck from "component/common/pem_check";
 import Util from "service/helper/util";
 import RequestUtil from "service/helper/request_util";
+import DialogDetail from "./dialog/detail";
 import Dialog from "./dialog";
 import { unionMemberOptionsSt } from "./states";
 import { urls, labels, messages } from "./config";
@@ -16,7 +17,9 @@ const { Title } = Typography;
 
 export default function UnionMember() {
     const table = useRef();
+
     const dialog = useRef();
+    const dialogDetail = useRef();
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState({ page: 1 });
     const [paging, setPaging] = useState({
@@ -98,37 +101,49 @@ export default function UnionMember() {
             key: "index",
             title: "STT",
             dataIndex: "index",
-            width: 60
+            width: 60,
         },
         {
             key: "full_name",
             title: labels.full_name,
             dataIndex: "full_name",
-            width: 150
+            width: 150,
+            render: (_text, record) => {
+                return (
+                    <a
+                        href="#"
+                        onClick={() => {
+                            dialogDetail.current.loadData(record.id);
+                        }}
+                    >
+                        {_text}
+                    </a>
+                );
+            },
         },
         {
             key: "email",
             title: labels.email,
             dataIndex: "email",
-            width: 220
+            width: 220,
         },
         {
             key: "position",
             title: labels.position,
             dataIndex: "position",
-            width: 120
+            width: 120,
         },
         {
             key: "phone_number",
             title: labels.phone_number,
             dataIndex: "phone_number",
-            width: 150
+            width: 150,
         },
         {
             key: "gender",
             title: labels.gender,
             dataIndex: "gender",
-            width: 90
+            width: 90,
         },
         {
             key: "participated_place",
@@ -149,7 +164,7 @@ export default function UnionMember() {
                     </PemCheck>
                 </div>
             ),
-            width: 120
+            width: 120,
         },
     ];
     const openDialog = (id = null) => {
@@ -191,6 +206,7 @@ export default function UnionMember() {
                     onChange={handleFilter}
                 />
                 <Dialog onChange={onChange} ref={dialog} />
+                <DialogDetail ref={dialogDetail} />
             </Card>
         </>
     );

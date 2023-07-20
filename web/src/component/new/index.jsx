@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState, useRef } from "react";
 import { useSetRecoilState } from "recoil";
-import { Card, Typography, Space, Switch } from "antd";
+import { Card, Typography, Space, Switch, Button } from "antd";
 import Image from "component/common/image";
 import SearchInput from "component/common/table/search_input";
 import CommonTable from "component/common/table";
@@ -11,6 +11,7 @@ import PemCheck from "component/common/pem_check";
 import Util from "service/helper/util";
 import RequestUtil from "service/helper/request_util";
 import Dialog from "./dialog";
+import DialogDetail from "./dialog/detail";
 import { newOptionsSt } from "./states";
 import { urls, labels, messages } from "./config";
 import { notification } from "antd";
@@ -21,6 +22,7 @@ const { Title } = Typography;
 export default function New() {
     const table = useRef();
     const dialog = useRef();
+    const dialogDetail = useRef();
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState({ page: 1 });
     const [paging, setPaging] = useState({
@@ -87,54 +89,26 @@ export default function New() {
         // }
     };
     const onChangeStatus = (e, data) => {
-        if (e) {
-            RequestUtil.apiCall(
-                "post/news/" + data.id + "/activate",
-                {},
-                "post"
-            )
+        RequestUtil.apiCall(
+            `post/news/${data.id}${e ? "/activate" : "inactivate"}"`,
+            {},
+            "post"
+        )
             .then((res) => {
                 notification.success({
-                    message:
-                        "Thay đổi trạng thái tin tức thành công",
+                    message: "Thay đổi trạng thái tin tức thành công",
                     duration: 8,
                 });
                 onChange(res, res.id);
             })
             .catch(() => {
                 notification.error({
-                    message:
-                        "Thay đổi trạng thái tin tức thất bại",
+                    message: "Thay đổi trạng thái tin tức thất bại",
                     duration: 8,
                 });
                 data.status = e;
                 onChange(data, data.id);
             });
-        }
-        else {
-            RequestUtil.apiCall(
-                "post/news/" + data.id + "/inactivate",
-                {},
-                "post"
-            )
-            .then((res) => {
-                notification.success({
-                    message:
-                        "Thay đổi trạng thái tin tức thành công",
-                    duration: 8,
-                });
-                onChange(res, res.id);
-            })
-            .catch(() => {
-                notification.error({
-                    message:
-                        "Thay đổi trạng thái tin tức thất bại",
-                    duration: 8,
-                });
-                data.status = e;
-                onChange(data, data.id);
-            });
-        }        
     };
 
     const columns = [
@@ -142,7 +116,7 @@ export default function New() {
             key: "index",
             title: "STT",
             dataIndex: "index",
-            width: 60
+            width: 60,
         },
         {
             key: "cover_image",
@@ -151,12 +125,24 @@ export default function New() {
             render: (_text, record) => {
                 return <Image type="thumbnail" url={_text} />;
             },
-            width: 100
+            width: 120,
         },
         {
             key: "title",
             title: labels.title,
             dataIndex: "title",
+            render: (_text, record) => {
+                return (
+                    <a
+                        href="#"
+                        onClick={() => {
+                            dialogDetail.current.loadData(record.id);
+                        }}
+                    >
+                        {_text}
+                    </a>
+                );
+            },
         },
         {
             key: "news_category_name",
@@ -167,7 +153,7 @@ export default function New() {
             key: "news_type_name",
             title: labels.news_type_name,
             dataIndex: "news_type_name",
-            width: 100
+            width: 100,
         },
         {
             key: "created_at",
@@ -176,13 +162,13 @@ export default function New() {
             render: (_text, record) => (
                 <span>{moment(_text).format("DD/MM/yyyy HH:mm")}</span>
             ),
-            width: 150
+            width: 150,
         },
         {
             key: "created_by_user",
             title: labels.created_by_user,
             dataIndex: "created_by_user",
-            width: 100
+            width: 100,
         },
         {
             key: "status",
@@ -194,7 +180,7 @@ export default function New() {
                     onChange={(event) => onChangeStatus(event, record)}
                 />
             ),
-            width: 100
+            width: 100,
         },
         {
             key: "action",
@@ -203,14 +189,14 @@ export default function New() {
             render: (_text, record) => (
                 <div className="flex-space">
                     <PemCheck pem_group={PEM_GROUP} pem="change">
-                        <EditBtn onClick={() => openDialog(record.id)}/>
+                        <EditBtn onClick={() => openDialog(record.id)} />
                     </PemCheck>
                     <PemCheck pem_group={PEM_GROUP} pem="delete">
                         <RemoveBtn onClick={() => onDelete(record.id)} />
                     </PemCheck>
                 </div>
             ),
-            width: 120
+            width: 120,
         },
     ];
     const openDialog = (id = null) => {
@@ -252,6 +238,7 @@ export default function New() {
                     onChange={handleFilter}
                 />
                 <Dialog onChange={onChange} ref={dialog} />
+                <DialogDetail ref={dialogDetail} />
             </Card>
         </>
     );
