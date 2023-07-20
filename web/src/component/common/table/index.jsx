@@ -30,7 +30,7 @@ const CommonTable = forwardRef(({ paging, onBulkDelete, list, selection, onChang
     if (sorter.order == "descend") {
       order = "-" + order;
     }
-    onChange({ order });
+    onChange({ order, page: 1 });
   };
   const handlePaging = (e) => {
     onChange({ page: e });

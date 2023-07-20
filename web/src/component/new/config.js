@@ -6,7 +6,6 @@ const urlMap = {
         prefix: "post/news",
         endpoints: {
             crud: "",
-            updateStatus: "status",
         },
     },
 };

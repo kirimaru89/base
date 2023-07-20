@@ -22,4 +22,8 @@ urlpatterns = (
         "files/",
         include("module.files.urls", namespace="files"),
     ),
+    path(
+        "activities-place/",
+        include("module.activities_place.urls", namespace="activities_place"),
+    ),
 )

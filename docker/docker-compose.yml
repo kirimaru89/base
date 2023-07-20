@@ -70,8 +70,6 @@ services:
       volumes:
         - ../web:/code:delegated
         - /code/node_modules
-      ports:
-        - "3000:3000"
       tty: ${DOCKER_TTY}
 
     dnyouth_nginx:
@@ -84,6 +82,7 @@ services:
             - ./conf.d:/etc/nginx/conf.d
             - ${SSL_PATH}:/resource/ssl
             - ../api/public/:/resource/public
+            - ../api/media/:/app/media
         ports:
             - "443:443"
         depends_on:

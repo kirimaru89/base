@@ -1,41 +1,41 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from module.dropdown.helper.utils import DropdownUtils
 from rest_framework import status
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated
 
-from module.account.union_member.helper.sr import UnionMemberSr
+from module.account.union_member.helper.sr import UnionMemberSr, UnionMemberDetailSr
 from module.account.union_member.helper.util import UnionMemberUtil
 from module.account.union_member.models import UnionMember
 from service.request_service import RequestService
-from module.dropdown.helper.utils import DropdownUtils
+from service.framework.drf_class.custom_permission import CustomPermission
 
 
 class UnionMemberViewSet(GenericViewSet):
-
     _name = "unnion_member"
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (CustomPermission,)
     serializer_class = UnionMemberSr
     search_fields = (
         "user__email",
         "user__phone_number",
         "user__first_name",
         "user__last_name",
+        "full_name",
     )
 
     def list(self, request):
         queryset = UnionMember.objects.all()
         queryset = self.filter_queryset(queryset)
         queryset = self.paginate_queryset(queryset)
-        serializer = UnionMemberSr(queryset, many=True)
+        serializer = UnionMemberDetailSr(queryset, many=True)
 
-        options = DropdownUtils.get_options()
         result = {
-            "items": serializer.data,
-            "extra": { "options": options }
-        }        
-        
+            "items": serializer.data, 
+            "extra": {
+                "options": DropdownUtils.get_options(user=request.user)
+            }
+        }
         return self.get_paginated_response(result)
 
     def retrieve(self, request, pk=None):

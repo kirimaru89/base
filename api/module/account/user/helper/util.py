@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from django.utils.translation import gettext_lazy as _
 from custom_type import query_obj
 from service.string_service import StringService
 from .sr import UserSr
@@ -52,3 +53,13 @@ class UserUtil:
             return User.objects.get(username=username)
         except User.DoesNotExist:
             return None
+
+    @staticmethod
+    def is_duplicate_username(username):
+        message = _(
+            'This email already exists in the system. Please, use another email to register or use the "Forgot password" function.'
+        )
+        user = UserUtil.get_user_by_username(username)
+        if user:
+            return {"detail": message}
+        return False

@@ -23,9 +23,7 @@ class NewsViewSet(GenericViewSet):
         return self.get_paginated_response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        obj = get_object_or_404(News, pk=pk)
-        # news_type_name = obj.news_type.name
-        # obj = obj.objects.values('news_type', 'news_type__name')        
+        obj = get_object_or_404(News, pk=pk)   
         serializer = NewsSr(obj)
         return RequestService.res(serializer.data)
 
@@ -61,3 +59,19 @@ class NewsViewSet(GenericViewSet):
             item = get_object_or_404(News, pk=pk)
             item.delete()
         return RequestService.res(status=status.HTTP_204_NO_CONTENT)
+    
+    @action(methods=["post"], detail=True)
+    def inactivate(self, request, pk=None):
+        News.objects.filter(pk=pk).update(status=0)
+        obj = get_object_or_404(News, pk=pk)
+        serializer = NewsSr(obj)
+
+        return RequestService.res(serializer.data)
+    
+    @action(methods=["post"], detail=True)
+    def activate(self, request, pk=None):
+        News.objects.filter(pk=pk).update(status=1)
+        obj = get_object_or_404(News, pk=pk)
+        serializer = NewsSr(obj)
+
+        return RequestService.res(serializer.data)

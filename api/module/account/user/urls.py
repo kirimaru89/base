@@ -7,12 +7,14 @@ from .views.auth import (
     LogoutView,
     ResetPasswordView,
     ChangePasswordView,
+    SignupView,
 )
 
 
 app_name = os.getcwd().split(os.sep)[-1]
 urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
+    path("signup/", SignupView.as_view(), name="login"),
     path("refresh-token/", RefreshTokenView.as_view(), name="refresh_token"),
     path("refresh-check/", RefreshCheckView.as_view(), name="refresh_check"),
     path("logout/", LogoutView.as_view(), name="logout"),

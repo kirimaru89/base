@@ -7,3 +7,5 @@ GENDER_CHOICES = (
     (Gender.FEMALE, "Nữ"),
     (Gender.MALE, "Nam"),
 )
+
+GENDER_DICT = dict(GENDER_CHOICES)

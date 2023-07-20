@@ -1,5 +1,6 @@
 import contextlib
 from django.contrib.auth.hashers import make_password, check_password
+from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 
@@ -8,6 +9,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from module.account.user.helper.sr import SignupSr
+from service.format_service import FormatService
 from service.string_service import StringService
 from service.request_service import RequestService
 from service.token_service import TokenService
@@ -34,6 +37,36 @@ class LoginView(TokenObtainPairView):
         user = TokenService.get_user_from_token(token)
         response = RequestService.jwt_response_handler(token, refresh_token, user)
         return RequestService.res(response)
+
+
+class SignupView(APIView):
+    permission_classes = (AllowAny,)
+
+    @transaction.atomic
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        email = data.get("email", "").lower()
+        data["email"] = email
+        serializer = SignupSr(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        phone_number = request.data.get("phone_number", "")
+        phone_number = FormatService.phone_to_canonical_format(phone_number)
+        if not FormatService.check_valid_phone_number(phone_number):
+            return RequestService.err({"detail": _("Invalid phone number format")})
+
+        is_duplicate_username = UserUtil.is_duplicate_username(email)
+        if is_duplicate_username:
+            return RequestService.err(is_duplicate_username)
+
+        raw_data = request.data
+        raw_data["language"] = RequestService.get_lang_code(request)
+        # user_sr, serializer = CustomerUtils.create(raw_data)
+        # serializer.data.update({"user": user_sr.data})
+        # data = serializer.data
+        # data["token"] = CustomerUtils.get_token(data["user_data"]["id"])
+        # data["username"] = user_sr.data.get("username", "").lower()
+        return RequestService.res(data)
 
 
 class RefreshTokenView(APIView):

@@ -1,0 +1,279 @@
+[
+    {
+        "name": "Bộ Chỉ huy Quân sự Thành phố Đà Nẵng",
+        "level": 1,
+        "children": []
+    },
+    {
+        "name": "Công an thành phố Đà Nẵng",
+        "level": 1,
+        "children": [
+            {
+                "name": "Phường Đoàn Hòa Minh",
+                "level": 2
+            }
+        ]
+    },
+    {
+        "name": "Đoàn ĐH Đà Nẵng",
+        "level": 1,
+        "children": []
+    },
+    {
+        "name": "Huyện Đoàn Hoà Vang",
+        "level": 1,
+        "children": [
+            {
+                "name": "Công An Huyện Đoàn",
+                "level": 3,
+                "children": [
+                    {
+                        "name": "Công an",
+                        "level": 6
+                    },
+                    {
+                        "name": "Quân sự",
+                        "level": 6
+                    },
+                    {
+                        "name": "Thôn Sơn Phước",
+                        "level": 6
+                    }
+                ]
+            },
+            {
+                "name": "Khối Đảng",
+                "level": 3
+            },
+            {
+                "name": "Xã Đoàn Hòa Ninh",
+                "level": 3
+            },
+            {
+                "name": "Trường THPT Phạm Phú Thứ",
+                "level": 3
+            }
+        ]
+    },
+    {
+        "name": "Quận Đoàn Liên Chiểu",
+        "level": 1,
+        "children": [
+            {
+                "name": "Phường Đoàn Hòa Hiệp Bắc",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Hiệp Nam",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Khánh Bắc",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Khánh Nam",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Minh",
+                "level": 2
+            }
+        ]
+    },
+    {
+        "name": "Quận Đoàn Thanh Khê",
+        "level": 1,
+        "children": [
+            {
+                "name": "Phường Đoàn Tam Thuận",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Thanh Khê Tây",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Thanh Khê Đông",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Xuân Hà",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Tân Chính",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Chính Gián",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Vĩnh Trung",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Thạc Gián",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn An Khê",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Khê",
+                "level": 2
+            }
+        ]
+    },
+    {
+        "name": "Quận Đoàn Hải Châu",
+        "level": 1,
+        "children": [
+            {
+                "name": "Phường Đoàn Thanh Bình",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Thuận Phước",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Thạch Thang",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hải Châu  I",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hải Châu II",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Phước Ninh",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Thuận Tây",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Thuận Đông",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Nam Dương",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Bình Hiên",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Bình Thuận",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Cường Bắc",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Cường Nam",
+                "level": 2
+            }
+        ]
+    },
+    {
+        "name": "Quận Đoàn Sơn Trà",
+        "level": 1,
+        "children": [
+            {
+                "name": "Phường Đoàn Thọ Quang",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Nại Hiên Đông",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Mân Thái",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn An Hải Bắc",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Phước Mỹ",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn An Hải Tây",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn An Hải Đông",
+                "level": 2
+            }
+        ]
+    },
+    {
+        "name": "Quận Đoàn Ngũ Hành Sơn",
+        "level": 1,
+        "children": [
+            {
+                "name": "Phường Đoàn Mỹ An",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Khuê Mỹ",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hoà Quý",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hoà Hải",
+                "level": 2
+            }
+        ]
+    },
+    {
+        "name": "Quận Đoàn Cẩm Lệ",
+        "level": 1,
+        "children": [
+            {
+                "name": "Phường Đoàn Khuê Trung",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Phát",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa An",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Thọ Tây",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Thọ Đông",
+                "level": 2
+            },
+            {
+                "name": "Phường Đoàn Hòa Xuân",
+                "level": 2
+            }
+        ]
+    },
+    {
+        "name": "Huyện Đoàn Hoàng Sa",
+        "level": 1,
+        "children": []
+    }
+]

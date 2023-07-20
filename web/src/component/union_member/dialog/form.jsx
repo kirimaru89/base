@@ -105,9 +105,9 @@ export default function UnionMemberForm({ data, onChange }) {
             name: "issued_place",
             label: labels.issued_place,
         },
-        date_of_birth: {
-            name: "date_of_birth",
-            label: labels.date_of_birth,
+        dob: {
+            name: "dob",
+            label: labels.dob,
         },
         gender: {
             name: "gender",
@@ -230,13 +230,13 @@ export default function UnionMemberForm({ data, onChange }) {
             <Form.Item {...formAttrs.issued_place}>
                 <Input />
             </Form.Item>
-            <Form.Item {...formAttrs.date_of_birth}>
+            <Form.Item {...formAttrs.dob}>
                 <DateInput />
             </Form.Item>
             <Form.Item {...formAttrs.gender}>
                 <Radio.Group>
                     <Radio value={1}>Nam</Radio>
-                    <Radio value={2}>Nữ</Radio>
+                    <Radio value={0}>Nữ</Radio>
                 </Radio.Group>
             </Form.Item>
             <Form.Item {...formAttrs.place_of_origin}>

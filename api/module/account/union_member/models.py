@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 
 from module.account.union_member.consts import GENDER_CHOICES
+from module.activities_place.models import ActivitiesPlace
 from module.dropdown.education_level.models import EducationLevel
 from module.dropdown.ethnic.models import Ethnic
 from module.dropdown.foreign_language_level.models import ForeignLanguageLevel
@@ -18,11 +19,17 @@ class UnionMember(TimeStampedModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255)
     joined_date = models.DateField(null=True, blank=True)
+    dob = models.DateField(null=True, blank=True)
+    place_of_origin = models.CharField(max_length=255, null=True, blank=True)
+    place_of_residence = models.CharField(max_length=255, null=True, blank=True)
     gender = models.IntegerField(choices=GENDER_CHOICES, null=True)
     identity_number = models.CharField(max_length=255, null=True, blank=True)
     participated_place_id = models.IntegerField(null=True, blank=True)
     issued_date = models.DateField(null=True, blank=True)
     issued_place = models.CharField(max_length=255, null=True, blank=True)
+    activities_place = models.ForeignKey(
+        ActivitiesPlace, related_name="union_members", on_delete=models.SET_NULL, null=True, blank=True, default=None,
+    )
     position = models.ForeignKey(
         Position, related_name="union_members", on_delete=models.SET_NULL, null=True, blank=True, default=None,
     )

@@ -51,4 +51,12 @@ urlpatterns = (
         "political_theory_level/",
         include("module.dropdown.political_theory_level.urls", namespace="political_theory_level"),
     ),
+    path(
+        "organization_level/",
+        include("module.dropdown.organization_level.urls", namespace="organization_level"),
+    ),
+    path(
+        "organization_type/",
+        include("module.dropdown.organization_type.urls", namespace="organization_type"),
+    ),
 )

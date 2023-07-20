@@ -36,6 +36,8 @@ const UnionMemberDialog = forwardRef(({ onChange }, ref) => {
     return (
         <Modal
             destroyOnClose
+            keyboard={false}
+            maskClosable={false}
             open={open}
             okButtonProps={{
                 form: Form.formName,

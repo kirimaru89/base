@@ -15,4 +15,6 @@ app_name = os.getcwd().split(os.sep)[-1]
 urlpatterns = [
     path("", BASE_ENDPOINT),
     path("<int:pk>", PK_ENDPOINT),
+    path("<int:pk>/inactivate", NewsViewSet.as_view({"post":"inactivate"})),
+    path("<int:pk>/activate", NewsViewSet.as_view({"post":"activate"})),
 ]

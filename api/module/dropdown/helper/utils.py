@@ -1,3 +1,4 @@
+from module.account.union_member.consts import GENDER_CHOICES
 from module.dropdown.education_level.helper.srs import EducationLevelSr
 from module.dropdown.education_level.models import EducationLevel
 from module.dropdown.ethnic.helper.srs import EthnicSr
@@ -21,6 +22,10 @@ from module.dropdown.religion.models import Religion
 
 
 class DropdownUtils:
+    @staticmethod
+    def get_gender():
+        return [dict(id=value, name=label) for value, label in GENDER_CHOICES]
+
     @staticmethod
     def get_recipient():
         return RecipientOptionSr(Recipient.objects.all(), many=True).data
@@ -55,15 +60,20 @@ class DropdownUtils:
 
     @staticmethod
     def get_foreign_language_level():
-        return ForeignLanguageLevelSr(ForeignLanguageLevel.objects.all(), many=True).data
+        return ForeignLanguageLevelSr(
+            ForeignLanguageLevel.objects.all(), many=True
+        ).data
 
     @staticmethod
     def get_political_theory_level():
-        return PoliticalTheoryLevelSr(PoliticalTheoryLevel.objects.all(), many=True).data
+        return PoliticalTheoryLevelSr(
+            PoliticalTheoryLevel.objects.all(), many=True
+        ).data
 
     @staticmethod
     def get_options(user=None, lang="vi"):
         return dict(
+            gender=DropdownUtils.get_gender(),
             recipient=DropdownUtils.get_recipient(),
             position=DropdownUtils.get_position(),
             ethnic=DropdownUtils.get_ethnic(),

@@ -93,18 +93,17 @@ export default function newForm({ data, onChange }) {
         <Form
             form={form}
             name={formName}
-            labelCol={{ span: 6 }}
+            labelCol={{ span: 3 }}
             labelAlign="left"
-            wrapperCol={{ span: 18 }}
+            wrapperCol={{ span: 21 }}
             requiredmarkposition={"right"}
             initialValues={{ ...initialValues }}
             onFinish={(payload) => {
+
                 return FormUtil.submit(endPoint, payload, method)
                     .then((data) => {
                         notification.success({
-                            message:
-                                (data.id ? "Chỉnh sửa" : "Thêm mới") +
-                                " tin tức thành công",
+                            message: (id ? "Chỉnh sửa" : "Thêm mới") +" tin tức thành công",
                             duration: 8,
                         });
                         return onChange(data, id);
@@ -112,8 +111,7 @@ export default function newForm({ data, onChange }) {
                     .catch((err) => {
                         notification.error({
                             message:
-                                (data.id ? "Chỉnh sửa" : "Thêm mới") +
-                                " tin tức thất bại",
+                                (id ? "Chỉnh sửa" : "Thêm mới") + " tin tức thất bại",
                             duration: 8,
                         });
                         FormUtil.setFormErrors(form);

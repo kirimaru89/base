@@ -86,7 +86,7 @@ export default function DropDownProfile() {
                 trigger={["click"]}
             >
                 <Avatar
-                    size={28}
+                    size={40}
                     src={<img src={avatar} alt="avatar" />}
                     style={{
                         cursor: "pointer",

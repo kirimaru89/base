@@ -46,7 +46,7 @@ export default function UnionMember() {
             });
     };
     const searchList = (keyword) => {
-        handleFilter({ search: keyword });
+        handleFilter({ search: keyword, page: 1 });
     };
     const handleFilter = (model = {}) => {
         setFilter((n) => {
@@ -98,43 +98,47 @@ export default function UnionMember() {
             key: "index",
             title: "STT",
             dataIndex: "index",
-            width: 60,
+            width: 60
         },
         {
             key: "full_name",
             title: labels.full_name,
             dataIndex: "full_name",
+            width: 150
         },
         {
             key: "email",
             title: labels.email,
             dataIndex: "email",
+            width: 220
         },
         {
             key: "position",
             title: labels.position,
             dataIndex: "position",
+            width: 120
         },
         {
             key: "phone_number",
             title: labels.phone_number,
             dataIndex: "phone_number",
+            width: 150
         },
         {
             key: "gender",
             title: labels.gender,
             dataIndex: "gender",
+            width: 90
         },
         {
-            key: "participated_grassroots",
-            title: labels.participated_grassroots,
-            dataIndex: "participated_grassroots",
+            key: "participated_place",
+            title: labels.participated_place,
+            dataIndex: "participated_place",
         },
         {
             key: "action",
             title: "",
             fixed: "right",
-            width: 90,
             render: (_text, record) => (
                 <div className="flex-space">
                     <PemCheck pem_group={PEM_GROUP} pem="change">
@@ -145,6 +149,7 @@ export default function UnionMember() {
                     </PemCheck>
                 </div>
             ),
+            width: 120
         },
     ];
     const openDialog = (id = null) => {

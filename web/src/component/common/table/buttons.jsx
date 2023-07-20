@@ -32,7 +32,7 @@ export function EditBtn({ onClick }) {
                 type="default"
                 htmlType="button"
                 icon={<EditOutlined />}
-                size="small"
+                size="large"
                 title="hello"
                 onClick={onClick}
             />
@@ -48,7 +48,7 @@ export function RemoveBtn({ onClick }) {
                 type="default"
                 htmlType="button"
                 icon={<DeleteOutlined />}
-                size="small"
+                size="large"
                 onClick={onClick}
             />
         </Tooltip>

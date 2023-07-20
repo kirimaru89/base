@@ -36,6 +36,8 @@ const newDialog = forwardRef(({ onChange }, ref) => {
     return (
         <Modal
             destroyOnClose
+            keyboard={false}
+            maskClosable={false}
             open={open}
             okButtonProps={{
                 form: Form.formName,
@@ -45,7 +47,7 @@ const newDialog = forwardRef(({ onChange }, ref) => {
             okText={t`Save`}
             onCancel={() => setOpen(false)}
             cancelText={t`Cancel`}
-            width={1000}
+            width={1200}
             title={
                 <span style={{ fontWeight: 700, lineHeight: 1.75 }}>
                     {Util.getDialogTitle(id, messages)}
