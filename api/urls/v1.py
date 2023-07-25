@@ -23,7 +23,7 @@ urlpatterns = (
         include("module.files.urls", namespace="files"),
     ),
     path(
-        "activities-place/",
-        include("module.activities_place.urls", namespace="activities_place"),
+        "organization/",
+        include("module.organization.urls", namespace="organization"),
     ),
 )

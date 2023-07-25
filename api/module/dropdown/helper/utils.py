@@ -9,6 +9,10 @@ from module.dropdown.it_level.helper.srs import ItLevelSr
 from module.dropdown.it_level.models import ItLevel
 from module.dropdown.occupation.helper.srs import OccupationSr
 from module.dropdown.occupation.models import Occupation
+from module.dropdown.organization_level.helper.srs import OrganizationLevelSr
+from module.dropdown.organization_level.models import OrganizationLevel
+from module.dropdown.organization_type.helper.srs import OrganizationTypeSr
+from module.dropdown.organization_type.models import OrganizationType
 from module.dropdown.political_theory_level.helper.srs import PoliticalTheoryLevelSr
 from module.dropdown.political_theory_level.models import PoliticalTheoryLevel
 from module.dropdown.position.helper.srs import PositionSr
@@ -71,6 +75,18 @@ class DropdownUtils:
         ).data
 
     @staticmethod
+    def get_organization_level():
+        return OrganizationLevelSr(
+            OrganizationLevel.objects.all(), many=True
+        ).data
+
+    @staticmethod
+    def get_organization_type():
+        return OrganizationTypeSr(
+            OrganizationType.objects.all(), many=True
+        ).data
+
+    @staticmethod
     def get_options(user=None, lang="vi"):
         return dict(
             gender=DropdownUtils.get_gender(),
@@ -84,4 +100,6 @@ class DropdownUtils:
             it_level=DropdownUtils.get_it_level(),
             foreign_language_level=DropdownUtils.get_foreign_language_level(),
             political_theory_level=DropdownUtils.get_political_theory_level(),
+            organization_level=DropdownUtils.get_political_theory_level(),
+            organization_type=DropdownUtils.get_political_theory_level(),
         )

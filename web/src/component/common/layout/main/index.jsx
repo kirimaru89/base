@@ -61,6 +61,13 @@ export default function MainLayout() {
                 icon: <FolderOpenOutlined />,
             });
         }
+
+        result.push({
+            label: "Quản lý tổ chức",
+            key: "/organizations",
+            icon: <FolderOpenOutlined />,
+        });
+
         return result;
     }
     const {

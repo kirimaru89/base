@@ -1,6 +1,7 @@
 from django.core.mail import EmailMultiAlternatives
 from service.error_service import ErrorService
 from service.async_service import async_task
+from django.conf import settings
 
 
 class EmailService:

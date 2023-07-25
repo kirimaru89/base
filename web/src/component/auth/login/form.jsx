@@ -19,7 +19,7 @@ export default function LoginForm({ onChange, children }) {
     const [form] = Form.useForm();
     const initialValues = {
         username: "admin@localhost",
-        password: "SamplePassword123!@#",
+        password: "SamplePassword123!@",
     };
 
     const formAttrs = {

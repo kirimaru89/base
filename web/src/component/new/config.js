@@ -24,7 +24,7 @@ export const emptyRecord = {
     id: 0,
     cover_image: "",
     title: "",
-    news_category: "",
+    news_category_ids: undefined,
     news_type: "",
     created_at: "",
     created_by: "",
@@ -35,7 +35,7 @@ export const emptyRecord = {
 export const labels = {
     title: t`Tiêu đề`,
     cover_image: t`Ảnh đại diện`,
-    news_category: t`Danh mục`,
+    news_category_ids: t`Danh mục`,
     news_category_name: t`Danh mục`,
     news_type: t`Kiểu tin tức`,
     news_type_name: t`Kiểu tin tức`,

@@ -6,7 +6,6 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('union_member', '0003_unionmember_activities_place'),
         ('union_member', '0005_unionmember_place_of_residence'),
     ]
 

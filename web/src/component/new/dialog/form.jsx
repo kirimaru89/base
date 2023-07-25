@@ -7,11 +7,11 @@ import FormUtil from "service/helper/form_util";
 import SelectInput from "component/common/form/ant/input/select_input.jsx";
 import Input from "component/common/form/ant/input";
 import { urls, labels, emptyRecord } from "../config";
-import { notification } from "antd";
-import { newOptionsSt } from "../states";
+import { notification, TreeSelect } from "antd";
 import Image from "component/common/image";
 import { STATUS_ARRAY } from "consts";
 import CkeditorCommon from "component/common/ckeditor";
+import { newsOptionsSt } from "../states";
 /**
  * @callback FormCallback
  *
@@ -29,18 +29,14 @@ const formName = "newForm";
  * @param {FormCallback} props.onChange
  * @param {Object} props.formRef
  */
-const typeArray = [
-    { label: "Tin nổi bật", value: 1 },
-    { label: "Tin thường", value: 2 },
-];
-const categoryArray = [
-    { label: "Tin giải trí", value: 1 },
-    { label: "Tin hoạt động Đoàn", value: 2 },
-];
 
 export default function newForm({ data, onChange }) {
+    const convert_data = (arr) => {
+        return arr.map((x) => ({ value: x.id, label: x.name }));
+    };
+
     const [form] = Form.useForm();
-    const newOptions = useRecoilValue(newOptionsSt);
+    const newsOptions = useRecoilValue(newsOptionsSt);
     const [link, setLink] = useState("");
     useEffect(() => {
         setLink(data.cover_image || "");
@@ -50,15 +46,22 @@ export default function newForm({ data, onChange }) {
     const endPoint = id ? `${urls.crud}${id}` : urls.crud;
     const method = id ? "put" : "post";
 
+    let {
+        news_categories,
+        news_types
+    } = newsOptions;
+
+    news_types = convert_data(news_types)
+
     const formAttrs = {
         title: {
             name: "title",
             label: labels.title,
             rules: [FormUtil.ruleRequired()],
         },
-        news_category: {
-            name: "news_category",
-            label: labels.news_category,
+        news_category_ids: {
+            name: "news_category_ids",
+            label: labels.news_category_ids,
             rules: [FormUtil.ruleRequired()],
         },
         news_type: {
@@ -121,17 +124,23 @@ export default function newForm({ data, onChange }) {
             <Form.Item {...formAttrs.title}>
                 <Input />
             </Form.Item>
-            <Form.Item {...formAttrs.news_category}>
-                <SelectInput
-                    block
-                    options={categoryArray}
-                    blankLabel={formAttrs.news_category.label}
-                />
+            <Form.Item {...formAttrs.news_category_ids}>
+            <TreeSelect
+                style={{ width: '100%' }}
+                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                treeData={news_categories}
+                placeholder="Chọn danh mục tin tức"
+                treeDefaultExpandAll
+                fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                treeCheckable
+                showSearch
+                treeNodeFilterProp='name'
+            />
             </Form.Item>
             <Form.Item {...formAttrs.news_type}>
                 <SelectInput
                     block
-                    options={typeArray}
+                    options={news_types}
                     blankLabel={formAttrs.news_type.label}
                 />
             </Form.Item>

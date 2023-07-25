@@ -146,9 +146,9 @@ export default function UnionMember() {
             width: 90,
         },
         {
-            key: "participated_place",
-            title: labels.participated_place,
-            dataIndex: "participated_place",
+            key: "organization",
+            title: labels.organization,
+            dataIndex: "organization",
         },
         {
             key: "action",

@@ -1,12 +1,13 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from module.dropdown.newsType.helper.util import NewsTypeUtil
 from rest_framework.decorators import action
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import status
 from service.framework.drf_class.custom_permission import CustomPermission
 from service.request_service import RequestService
 from ..models import NewsType
-from ..helper.sr import NewsTypeSr
+from ..helper.sr import NewsTypeSr, NewsTypeTreeSr
 
 
 class NewsTypeViewSet(GenericViewSet):

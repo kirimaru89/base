@@ -1,5 +1,7 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from module.dropdown.newsType.helper.util import NewsTypeUtil
+from module.dropdown.newsCategory.helper.util import NewsCategoryUtil
 from rest_framework.decorators import action
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import status
@@ -20,7 +22,21 @@ class NewsViewSet(GenericViewSet):
         queryset = self.filter_queryset(queryset)
         queryset = self.paginate_queryset(queryset)
         serializer = NewsSr(queryset, many=True)
-        return self.get_paginated_response(serializer.data)
+        
+        news_categories = NewsCategoryUtil.get_news_category_tree()
+        news_types = NewsTypeUtil.get_news_types()
+        options = {}
+        options["news_categories"] = news_categories
+        options["news_types"] = news_types
+        
+        result = {
+            "items": serializer.data, 
+            "extra": {
+                "options": options
+            }
+        }
+        
+        return self.get_paginated_response(result)
 
     def retrieve(self, request, pk=None):
         obj = get_object_or_404(News, pk=pk)   

@@ -30,8 +30,10 @@ const Login = lazyImport(lazy(() => import("component/auth/login")));
 const Staff = lazyImport(lazy(() => import("component/staff")));
 const UnionMember = lazyImport(lazy(() => import("component/union_member")));
 const New = lazyImport(lazy(() => import("component/new")));
+const AddNews = lazyImport(lazy(() => import("component/new/add_news")));
 const Role = lazyImport(lazy(() => import("component/role")));
 const Variable = lazyImport(lazy(() => import("component/variable")));
+const Organization = lazyImport(lazy(() => import("component/organization")));
 
 function Index() {
     const [dataLoaded, setDataLoaded] = useState(false);
@@ -72,15 +74,13 @@ function Index() {
                                     element={<UnionMember />}
                                 />
                                 <Route path="/news" element={<New />} />
-                                {/* <Route path="/role" element={<Role />} />
-                                <Route
-                                    path="/variable"
-                                    element={<Variable />}
-                                /> */}
+                                {/* <Route path="/news/add" element={<AddNews />} /> */}
+                                <Route path="/news/:id" element={<AddNews />} />
                                 <Route
                                     path="/"
                                     element={<Navigate to="/members" replace />}
                                 />
+                                <Route path="/organizations" element={<Organization />} />
                             </Route>
                         </Route>
                         <Route path="*" element={<NotMatch />} />

@@ -21,6 +21,8 @@ const newDialog = forwardRef(({}, ref) => {
         Util.toggleGlobalLoading();
         RequestUtil.apiCall(`${urls.crud}${id}`)
             .then((resp) => {
+                resp.organization_id = resp.organization?.label||'';
+                resp.joined_date = resp.joined_date??'';
                 setData(resp);
                 setOpen(true);
             })
@@ -34,36 +36,36 @@ const newDialog = forwardRef(({}, ref) => {
         { key: labels.identity_number, value: data.identity_number },
         {
             key: labels.issued_date,
-            value: moment(data.issued_date).format("DD/MM/yyyy"),
+            value: data.issued_date ? moment(data.issued_date).format("DD/MM/yyyy") : '',
         },
         { key: labels.issued_place, value: data.issued_place },
-        { key: labels.dob, value: moment(data.dob).format("DD/MM/yyyy") },
-        { key: labels.gender, value: data.gender },
+        { key: labels.dob, value: data.dob ? moment(data.dob).format("DD/MM/yyyy") : ''},
+        { key: labels.gender, value: data.gender?.label },
         { key: labels.place_of_origin, value: data.place_of_origin },
         { key: labels.place_of_residence, value: data.place_of_residence },
-        { key: labels.ethnic, value: data.ethnic },
-        { key: labels.religion, value: data.religion },
-        { key: labels.occupation, value: data.occupation },
+        { key: labels.ethnic, value: data.ethnic?.name },
+        { key: labels.religion, value: data.religion?.name },
+        { key: labels.occupation, value: data.occupation?.name },
     ];
     const data2 = [
-        { key: labels.position, value: data.position },
+        { key: labels.position, value: data.position?.name },
         {
             key: labels.joined_date,
-            value: moment(data.joined_date).format("DD/MM/yyyy"),
+            value: data.joined_date ? moment(data.joined_date).format("DD/MM/yyyy") : '',
         },
-        { key: labels.participated_place, value: data.participated_place },
+        { key: labels.organization, value: data.organization_id },
     ];
     const data3 = [
-        { key: labels.education_level, value: data.education_level },
-        { key: labels.qualification, value: data.qualification },
-        { key: labels.it_level, value: data.it_level },
+        { key: labels.education_level, value: data.education_level?.name },
+        { key: labels.qualification, value: data.qualification?.name },
+        { key: labels.it_level, value: data.it_level?.name },
         {
             key: labels.political_theory_level,
-            value: data.political_theory_level,
+            value: data.political_theory_level?.name,
         },
         {
             key: labels.foreign_language_level,
-            value: data.foreign_language_level,
+            value: data.foreign_language_level?.name,
         },
     ];
     return (
@@ -91,8 +93,8 @@ const newDialog = forwardRef(({}, ref) => {
                         renderItem={(item) => (
                             <List.Item>
                                 <Row style={{ width: "100%" }}>
-                                    <Col span={6}>{item.key}:</Col>
-                                    <Col span={18}>{item.value}</Col>
+                                    <Col span={8}>{item.key}:</Col>
+                                    <Col span={16}>{item.value}</Col>
                                 </Row>
                             </List.Item>
                         )}
@@ -112,8 +114,8 @@ const newDialog = forwardRef(({}, ref) => {
                                 renderItem={(item) => (
                                     <List.Item>
                                         <Row style={{ width: "100%" }}>
-                                            <Col span={6}>{item.key}:</Col>
-                                            <Col span={18}>{item.value}</Col>
+                                            <Col span={8}>{item.key}:</Col>
+                                            <Col span={16}>{item.value}</Col>
                                         </Row>
                                     </List.Item>
                                 )}
@@ -131,8 +133,8 @@ const newDialog = forwardRef(({}, ref) => {
                                 renderItem={(item) => (
                                     <List.Item>
                                         <Row style={{ width: "100%" }}>
-                                            <Col span={6}>{item.key}:</Col>
-                                            <Col span={18}>{item.value}</Col>
+                                            <Col span={8}>{item.key}:</Col>
+                                            <Col span={16}>{item.value}</Col>
                                         </Row>
                                     </List.Item>
                                 )}

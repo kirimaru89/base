@@ -75,7 +75,7 @@ PROJECT_APPS = [
     "module.dropdown.political_theory_level",
     "module.dropdown.organization_level",
     "module.dropdown.organization_type",
-    "module.activities_place",
+    "module.organization",
 ]
 
 INSTALLED_APPS = REQUIRED_APPS + PROJECT_APPS

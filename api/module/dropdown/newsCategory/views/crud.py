@@ -1,5 +1,6 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from module.dropdown.newsCategory.helper.util import NewsCategoryUtil
 from rest_framework.decorators import action
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import status
@@ -22,6 +23,10 @@ class NewsCategoryViewSet(GenericViewSet):
         serializer = NewsCategorySr(queryset, many=True)
         return self.get_paginated_response(serializer.data)
 
+    def getTree(self, request):
+        nodes = NewsCategoryUtil.get_news_category_tree()
+        return RequestService.res(nodes)
+    
     def retrieve(self, request, pk=None):
         obj = get_object_or_404(NewsCategory, pk=pk)
         serializer = NewsCategorySr(obj)

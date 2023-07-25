@@ -16,6 +16,10 @@ urlpatterns = (
         include("module.dropdown.newsType.urls", namespace="newsType"),
     ),
     path(
+        "newsCategories/",
+        include("module.dropdown.newsCategory.urls", namespace="newsCategory"),
+    ),
+    path(
         "position/",
         include("module.dropdown.position.urls", namespace="position"),
     ),
@@ -40,23 +44,23 @@ urlpatterns = (
         include("module.dropdown.qualification.urls", namespace="qualification"),
     ),
     path(
-        "it_level/",
+        "it-level/",
         include("module.dropdown.it_level.urls", namespace="it_level"),
     ),
     path(
-        "foreign_language_level/",
+        "foreign-language-level/",
         include("module.dropdown.foreign_language_level.urls", namespace="foreign_language_level"),
     ),
     path(
-        "political_theory_level/",
+        "political-theory-level/",
         include("module.dropdown.political_theory_level.urls", namespace="political_theory_level"),
     ),
     path(
-        "organization_level/",
+        "organization-level/",
         include("module.dropdown.organization_level.urls", namespace="organization_level"),
     ),
     path(
-        "organization_type/",
+        "organization-type/",
         include("module.dropdown.organization_type.urls", namespace="organization_type"),
     ),
 )

@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 
 from module.account.union_member.consts import GENDER_CHOICES
-from module.activities_place.models import ActivitiesPlace
 from module.dropdown.education_level.models import EducationLevel
 from module.dropdown.ethnic.models import Ethnic
 from module.dropdown.foreign_language_level.models import ForeignLanguageLevel
@@ -12,6 +11,7 @@ from module.dropdown.political_theory_level.models import PoliticalTheoryLevel
 from module.dropdown.position.models import Position
 from module.dropdown.qualification.models import Qualification
 from module.dropdown.religion.models import Religion
+from module.organization.models import Organization
 from service.framework.model.timestamped_model import TimeStampedModel
 
 
@@ -24,11 +24,10 @@ class UnionMember(TimeStampedModel):
     place_of_residence = models.CharField(max_length=255, null=True, blank=True)
     gender = models.IntegerField(choices=GENDER_CHOICES, null=True)
     identity_number = models.CharField(max_length=255, null=True, blank=True)
-    participated_place_id = models.IntegerField(null=True, blank=True)
     issued_date = models.DateField(null=True, blank=True)
     issued_place = models.CharField(max_length=255, null=True, blank=True)
-    activities_place = models.ForeignKey(
-        ActivitiesPlace, related_name="union_members", on_delete=models.SET_NULL, null=True, blank=True, default=None,
+    organization = models.ForeignKey(
+        Organization, related_name="union_members", on_delete=models.SET_NULL, null=True, blank=True, default=None,
     )
     position = models.ForeignKey(
         Position, related_name="union_members", on_delete=models.SET_NULL, null=True, blank=True, default=None,

@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const newOptionsSt = atom({
-    key: "newOptions",
+export const newsOptionsSt = atom({
+    key: "newsOptions",
     default: {},
 });

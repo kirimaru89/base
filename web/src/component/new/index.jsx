@@ -12,14 +12,19 @@ import Util from "service/helper/util";
 import RequestUtil from "service/helper/request_util";
 import Dialog from "./dialog";
 import DialogDetail from "./dialog/detail";
-import { newOptionsSt } from "./states";
+import { newsOptionsSt } from "./states";
 import { urls, labels, messages } from "./config";
 import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
+import NavUtil from "service/helper/nav_util";
 
 const PEM_GROUP = "news";
 const { Title } = Typography;
 
 export default function New() {
+    const navigate = useNavigate();
+    const navigateTo = NavUtil.navigateTo(navigate);
+
     const table = useRef();
     const dialog = useRef();
     const dialogDetail = useRef();
@@ -31,7 +36,7 @@ export default function New() {
         page_size: 15,
     });
     const [list, setList] = useState([]);
-    const setnewOptions = useSetRecoilState(newOptionsSt);
+    const setNewsOptions = useSetRecoilState(newsOptionsSt);
     const getList = () => {
         setLoading(true);
         RequestUtil.apiCall(urls.crud, filter)
@@ -44,7 +49,7 @@ export default function New() {
                     };
                 });
                 setList(res.items);
-                setnewOptions(res.extra.options);
+                setNewsOptions(res.extra.options);
             })
             .catch(() => {
                 // setList(mockupData);
@@ -90,7 +95,7 @@ export default function New() {
     };
     const onChangeStatus = (e, data) => {
         RequestUtil.apiCall(
-            `post/news/${data.id}${e ? "/activate" : "inactivate"}"`,
+            `post/news/${data.id}${e ? "/activate" : "/inactivate"}`,
             {},
             "post"
         )
@@ -145,9 +150,9 @@ export default function New() {
             },
         },
         {
-            key: "news_category_name",
+            key: "news_categories",
             title: labels.news_category_name,
-            dataIndex: "news_category_name",
+            dataIndex: "news_categories",
         },
         {
             key: "news_type_name",
@@ -199,8 +204,8 @@ export default function New() {
             width: 120,
         },
     ];
-    const openDialog = (id = null) => {
-        dialog.current.loadData(id);
+    const openDialog = (id = 0) => {
+        navigateTo('/news/' + id)
     };
     const Header = () => {
         return (

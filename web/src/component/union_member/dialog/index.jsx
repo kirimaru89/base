@@ -23,7 +23,21 @@ const UnionMemberDialog = forwardRef(({ onChange }, ref) => {
             Util.toggleGlobalLoading();
             RequestUtil.apiCall(`${urls.crud}${id}`)
                 .then((resp) => {
-                    setData(resp);
+                    let item = {
+                        ...resp,
+                        education_level:resp.education_level?.id||'',
+                        ethnic:resp.ethnic?.id||'',
+                        foreign_language_level:resp.foreign_language_level?.id||'',
+                        gender:resp.gender?.id,
+                        it_level:resp.it_level?.id||'',
+                        occupation:resp.occupation?.id||'',
+                        political_theory_level:resp.political_theory_level?.id||'',
+                        position:resp.position?.id||'',
+                        religion:resp.religion?.id||'',
+                        qualification:resp.qualification?.id||'',
+                        organization:resp.organization?.id||''
+                    }
+                    setData(item);
                     setOpen(true);
                 })
                 .finally(() => Util.toggleGlobalLoading(false));

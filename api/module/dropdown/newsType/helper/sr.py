@@ -7,3 +7,15 @@ class NewsTypeSr(ModelSerializer):
         model = NewsType
         exclude = ()
         read_only_fields = ("id",)
+        
+
+class NewsTypeTreeSr(ModelSerializer):
+    class Meta:
+        model = NewsType
+        exclude = ()
+        read_only_fields = ("id",)
+        
+    def to_representation(self, obj):
+        rep = super().to_representation(obj)
+        return rep
+    

@@ -1,11 +1,12 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404
+from module.organization.helper.util import OrganizationUtil
 from module.dropdown.helper.utils import DropdownUtils
 from rest_framework import status
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
 
-from module.account.union_member.helper.sr import UnionMemberSr, UnionMemberDetailSr
+from module.account.union_member.helper.sr import UnionMemberSr, UnionMemberDetailSr, ListUnionMemberSr
 from module.account.union_member.helper.util import UnionMemberUtil
 from module.account.union_member.models import UnionMember
 from service.request_service import RequestService
@@ -28,27 +29,31 @@ class UnionMemberViewSet(GenericViewSet):
         queryset = UnionMember.objects.all()
         queryset = self.filter_queryset(queryset)
         queryset = self.paginate_queryset(queryset)
-        serializer = UnionMemberDetailSr(queryset, many=True)
+        serializer = ListUnionMemberSr(queryset, many=True)
 
+        organization_tree = OrganizationUtil.get_organization_tree()
+        options = DropdownUtils.get_options(user=request.user)
+        options["organization_tree"] = organization_tree
+        
         result = {
             "items": serializer.data, 
             "extra": {
-                "options": DropdownUtils.get_options(user=request.user)
+                "options": options
             }
         }
         return self.get_paginated_response(result)
 
     def retrieve(self, request, pk=None):
         obj = get_object_or_404(UnionMember, pk=pk)
-        serializer = UnionMemberSr(obj)
+        serializer = UnionMemberDetailSr(obj)
         return RequestService.res(serializer.data)
 
     @transaction.atomic
     @action(methods=["post"], detail=True)
     def add(self, request):
+        group_id = 4 # đoàn viên
         data = request.data
-        #TODO: remove hard code
-        data["groups"] = [3]
+        data["groups"] = [group_id]
         obj = UnionMemberUtil.create_union_member(data)
         sr = UnionMemberSr(obj)
         return RequestService.res(sr.data)

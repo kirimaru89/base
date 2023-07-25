@@ -8,6 +8,7 @@ from rest_framework.serializers import ValidationError
 from custom_type import query_set
 from service.token_service import TokenService
 from service.date_service import DateService
+import uuid
 
 
 def error_response_to_string_list(error_response: dict) -> list:
@@ -37,6 +38,11 @@ class RequestService:
             data = {
                 "token": token,
                 "refresh_token": refresh_token,
+                "user": {
+                  "full_name": user.full_name,
+                  "email": user.email,
+                  "phone_number": str(user.phone_number)
+                },
                 "user_type": "staff" if hasattr(user, "staff") else "",
             }
 
@@ -70,9 +76,11 @@ class RequestService:
             "veriflog",
         ]
         group_ids = user.groups.values_list("id", flat=True)
-        queryset = Permission.objects.all()
-        if user.is_staff:
-            queryset = Permission.objects.filter(group__in=group_ids).distinct()
+        # queryset = Permission.objects.all()
+        # if user.is_staff:
+        queryset = Permission.objects.filter(group__in=group_ids).distinct()
+            
+        # breakpoint()
         list_item = queryset.values_list("codename", flat=True)
         result = {}
         for item in list_item:
@@ -165,5 +173,8 @@ class RequestService:
         ips = request.META.get("HTTP_X_FORWARDED_FOR", "")
         return [x.strip() for x in ips.split(",")]
 
+    @staticmethod
+    def get_uuid() -> str:
+        return str(uuid.uuid4())
 
 JWT_RESPONSE_HANDLER = RequestService.jwt_response_handler

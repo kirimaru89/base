@@ -7,7 +7,7 @@ import SelectInput from "component/common/form/ant/input/select_input.jsx";
 import DateInput from "component/common/form/ant/input/date_input.jsx";
 import Input from "component/common/form/ant/input";
 import { urls, labels, emptyRecord } from "../config";
-import { notification } from "antd";
+import { notification, TreeSelect } from "antd";
 import { unionMemberOptionsSt } from "../states";
 const { Title, Text } = Typography;
 /**
@@ -32,22 +32,6 @@ export default function UnionMemberForm({ data, onChange }) {
     const convertData = (arr) => {
         return arr.map((x) => ({ value: x.id, label: x.name }));
     };
-    let participated_city = [{ id: 1, name: "Đà Nẵng" }];
-    let participated_district = [
-        { id: 1, name: "Bộ Chỉ huy Quân sự Thành phố Đà Nẵng" },
-
-        { id: 2, name: "Công an thành phố Đà Nẵng" },
-
-        { id: 3, name: "Đoàn ĐH Đà Nẵng" },
-
-        { id: 4, name: "Huyện Đoàn Hòa Vang" },
-
-        { id: 5, name: "Quận Đoàn Cẩm Lệ" },
-
-        { id: 6, name: "Quận Đoàn Hải Châu" },
-
-        { id: 7, name: "Quận Đoàn Liên Chiểu" },
-    ];
 
     const unionMemberOptions = useRecoilValue(unionMemberOptionsSt);
     let {
@@ -60,6 +44,7 @@ export default function UnionMemberForm({ data, onChange }) {
         it_level,
         foreign_language_level,
         political_theory_level,
+        organization_tree
     } = unionMemberOptions;
     position = convertData(position);
     religion = convertData(religion);
@@ -70,8 +55,7 @@ export default function UnionMemberForm({ data, onChange }) {
     it_level = convertData(it_level);
     foreign_language_level = convertData(foreign_language_level);
     political_theory_level = convertData(political_theory_level);
-    participated_city = convertData(participated_city);
-    participated_district = convertData(participated_district);
+
     const initialValues = Util.isEmpty(data) ? emptyRecord : { ...data };
     const id = initialValues.id;
     const endPoint = id ? `${urls.crud}${id}` : urls.crud;
@@ -113,21 +97,10 @@ export default function UnionMemberForm({ data, onChange }) {
             name: "gender",
             label: labels.gender,
         },
-        participated_city: {
-            name: "participated_city",
-            label: labels.participated_city,
-        },
-        participated_district: {
-            name: "participated_district",
-            label: labels.participated_district,
-        },
-        participated_chapter: {
-            name: "participated_chapter",
-            label: labels.participated_chapter,
-        },
-        participated_grassroots: {
-            name: "participated_grassroots",
-            label: labels.participated_grassroots,
+        organization: {
+            name: "organization",
+            label: labels.organization,
+            rules: [FormUtil.ruleRequired()],
         },
         place_of_origin: {
             name: "place_of_origin",
@@ -277,34 +250,17 @@ export default function UnionMemberForm({ data, onChange }) {
             <Form.Item {...formAttrs.joined_date}>
                 <DateInput />
             </Form.Item>
-            <Text strong>Nơi sinh hoạt Đoàn</Text>
-            <Form.Item {...formAttrs.participated_city}>
-                <SelectInput
-                    options={participated_city}
-                    block
-                    disabled
-                    blankLabel={formAttrs.participated_city.label}
-                />
-            </Form.Item>
-            <Form.Item {...formAttrs.participated_district}>
-                <SelectInput
-                    options={participated_district}
-                    block
-                    blankLabel={formAttrs.participated_district.label}
-                />
-            </Form.Item>
-            <Form.Item {...formAttrs.participated_chapter}>
-                <SelectInput
-                    options={[]}
-                    block
-                    blankLabel={formAttrs.participated_chapter.label}
-                />
-            </Form.Item>
-            <Form.Item {...formAttrs.participated_grassroots}>
-                <SelectInput
-                    options={[]}
-                    block
-                    blankLabel={formAttrs.participated_grassroots.label}
+            {/* <Text strong>Nơi sinh hoạt Đoàn</Text> */}
+            <Form.Item {...formAttrs.organization}>
+                <TreeSelect
+                    style={{ width: '100%' }}
+                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                    treeData={organization_tree}
+                    placeholder="Chọn nơi sinh hoạt"
+                    treeDefaultExpandAll
+                    fieldNames={{ label: 'name', value: 'id', children: 'children' }}
+                    showSearch
+                    treeNodeFilterProp='name'
                 />
             </Form.Item>
             <Title level={5}>Thông tin học vấn</Title>

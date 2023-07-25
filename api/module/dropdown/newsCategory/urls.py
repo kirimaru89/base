@@ -15,4 +15,5 @@ app_name = os.getcwd().split(os.sep)[-1]
 urlpatterns = [
     path("", BASE_ENDPOINT),
     path("<int:pk>", PK_ENDPOINT),
+    path("getTree", NewsCategoryViewSet.as_view({"get": "getTree"}))
 ]
