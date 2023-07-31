@@ -19,7 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("phone_number", "email")
+        fields = ("mobile", "email")
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -34,4 +34,4 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = User
-        fields = ("phone_number", "email")
+        fields = ("mobile", "email")

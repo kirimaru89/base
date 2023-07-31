@@ -25,15 +25,21 @@ const lazyImport = (Component) => (props) => {
     );
 };
 
-const Home = lazyImport(lazy(() => import("component/home")));
+// const Home = lazyImport(lazy(() => import("component/home")));
 const Login = lazyImport(lazy(() => import("component/auth/login")));
-const Staff = lazyImport(lazy(() => import("component/staff")));
-const UnionMember = lazyImport(lazy(() => import("component/union_member")));
-const New = lazyImport(lazy(() => import("component/new")));
-const AddNews = lazyImport(lazy(() => import("component/new/add_news")));
-const Role = lazyImport(lazy(() => import("component/role")));
-const Variable = lazyImport(lazy(() => import("component/variable")));
-const Organization = lazyImport(lazy(() => import("component/organization")));
+const Member = lazyImport(lazy(() => import("component/account/member")));
+const News = lazyImport(lazy(() => import("component/article/new")));
+const AddNews = lazyImport(lazy(() => import("component/article/new/add_news")));
+const Organization = lazyImport(lazy(() => import("component/dropdown/organization")));
+const Campaign = lazyImport(lazy(() => import("component/activity/campaign")));
+const AddCampaign = lazyImport(lazy(() => import("component/activity/campaign/add_campaign")));
+const Home = lazyImport(lazy(() => import("component/home")));
+const Contest = lazyImport(lazy(() => import("component/activity/contest")));
+const Question = lazyImport(lazy(() => import("component/activity/question")));
+const Exam = lazyImport(lazy(() => import("component/activity/exam")));
+const ContestNew = lazyImport(lazy(() => import("component/activity/contest_new")));
+const AddContest = lazyImport(lazy(() => import("component/activity/contest_new/add_contest")));
+const QuestionList = lazyImport(lazy(() => import("component/activity/question_new")));
 
 function Index() {
     const [dataLoaded, setDataLoaded] = useState(false);
@@ -67,20 +73,20 @@ function Index() {
                         </Route>
                         <Route path="/" element={<PrivateRoute />}>
                             <Route path="/" element={<MainLayout />}>
-                                {/* <Route path="/" element={<Home />} /> */}
-                                {/* <Route path="/staff" element={<Staff />} /> */}
-                                <Route
-                                    path="/members"
-                                    element={<UnionMember />}
-                                />
-                                <Route path="/news" element={<New />} />
-                                {/* <Route path="/news/add" element={<AddNews />} /> */}
-                                <Route path="/news/:id" element={<AddNews />} />
-                                <Route
-                                    path="/"
-                                    element={<Navigate to="/members" replace />}
-                                />
-                                <Route path="/organizations" element={<Organization />} />
+                                <Route path="/" element={<Navigate to="/home" replace />} />
+                                <Route path="/home" element={<Home />} />
+                                <Route path="/account/member" element={<Member />} />
+                                <Route path="/article/news" element={<News />} />
+                                <Route path="/article/news/:id" element={<AddNews />} />
+                                <Route path="/dropdown/organization" element={<Organization />} />
+                                <Route path="/activity/campaign" element={<Campaign />} />
+                                <Route path="/activity/campaign/:id" element={<AddCampaign />} />
+                                <Route path="/activity/contest" element={<Contest />} />
+                                <Route path="/activity/contest-new" element={<ContestNew />} />
+                                <Route path="/activity/contest-new/:id" element={<AddContest />} />
+                                <Route path="/activity/question-new/:contestId" element={<QuestionList />} />
+                                <Route path="/activity/question/:contestId" element={<Question />} />
+                                <Route path="/activity/exam" element={<Exam />} />
                             </Route>
                         </Route>
                         <Route path="*" element={<NotMatch />} />

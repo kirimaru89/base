@@ -1,7 +1,10 @@
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.hashers import make_password, check_password
+from django.template.loader import render_to_string
 from custom_type import query_obj
+from service.email_service import EmailService
 from service.string_service import StringService
 from .sr import UserSr
 
@@ -16,7 +19,7 @@ class UserUtil:
     @staticmethod
     def create_user(data: dict) -> query_obj:
         if not data.get("password"):
-            data["password"] = "SamplePassword123!@#" #StringService.get_random_digits(12)
+            data["password"] = StringService.get_random_digits(12)
         sr = UserSr(data=data)
         sr.is_valid(raise_exception=True)
         user = sr.save()
@@ -63,3 +66,33 @@ class UserUtil:
         if user:
             return {"detail": message}
         return False
+
+    @staticmethod
+    def send_new_password_email(to_email, password, lang):
+        subject = (
+            "[Thanh niên Đà Nẵng] Thông báo cấp lại mật khẩu mới"
+            if lang == "vi-vn"
+            else "[Da Nang youth] Reset new password"
+        )
+        body = render_to_string(
+            f"emails/forgot_password/{lang}.html",
+            {
+                "password": password,
+            },
+        )
+        EmailService.send_email_async(subject, body, to_email)
+
+    @staticmethod
+    def forgot_password(email, lang="vi-vn"):
+        try:
+            user = UserUtil.get_user_by_username(email)
+            if not user:
+                return False
+            password = StringService.get_random_digits(12)
+            user.password = make_password(password)
+            user.save()
+            UserUtil.send_new_password_email(email, password, lang)
+            return True
+        except Exception as e:
+            print(repr(e))
+            return False

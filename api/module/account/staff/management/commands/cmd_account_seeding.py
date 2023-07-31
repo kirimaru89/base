@@ -29,7 +29,7 @@ class Command(BaseCommand):
         Group.objects.get_or_create(name="Manager")
         Group.objects.get_or_create(name="Admin")
         staff_group, _ = Group.objects.get_or_create(name="Staff")
-        Group.objects.get_or_create(name="Đoàn viên")
+        Group.objects.get_or_create(name="Member")
         permissions = Permission.objects.all()
         for group in Group.objects.all():
             group.permissions.set(permissions)

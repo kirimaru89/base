@@ -32,18 +32,19 @@ def get_inactive_message() -> str:
 
 class RequestService:
     @staticmethod
+    def get_user_type(user):
+        if hasattr(user, "staff"):
+            return "staff"
+        return "member" if hasattr(user, "member") else ""
+
+    @staticmethod
     def jwt_response_handler(token, refresh_token, user):
         error_message = _("This user didn't associate with any profile.")
         try:
             data = {
                 "token": token,
                 "refresh_token": refresh_token,
-                "user": {
-                  "full_name": user.full_name,
-                  "email": user.email,
-                  "phone_number": str(user.phone_number)
-                },
-                "user_type": "staff" if hasattr(user, "staff") else "",
+                "user_type": RequestService.get_user_type(user),
             }
 
             # if not data["user_type"]:
@@ -76,11 +77,9 @@ class RequestService:
             "veriflog",
         ]
         group_ids = user.groups.values_list("id", flat=True)
-        # queryset = Permission.objects.all()
-        # if user.is_staff:
-        queryset = Permission.objects.filter(group__in=group_ids).distinct()
-            
-        # breakpoint()
+        queryset = Permission.objects.all()
+        if user.is_staff:
+            queryset = Permission.objects.filter(group__in=group_ids).distinct()
         list_item = queryset.values_list("codename", flat=True)
         result = {}
         for item in list_item:
@@ -176,5 +175,6 @@ class RequestService:
     @staticmethod
     def get_uuid() -> str:
         return str(uuid.uuid4())
+
 
 JWT_RESPONSE_HANDLER = RequestService.jwt_response_handler

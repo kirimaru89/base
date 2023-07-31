@@ -1,38 +1,38 @@
-import * as React from "react";
-import { Button, Row, Col, Form, Input } from "antd";
-import { t } from "ttag";
-import { CheckOutlined } from "@ant-design/icons";
-import FormUtil from "service/helper/form_util";
-import { urls } from "../config";
+import * as React from 'react';
+import { Button, Row, Col, Form, Input } from 'antd';
+import { t } from 'ttag';
+import { CheckOutlined } from '@ant-design/icons';
+import FormUtil from 'service/helper/form_util';
+import { urls } from '../config';
 
-const formName = "LoginForm";
+const formName = 'LoginForm';
 
 const formItemStyle = {
-    margin: "16px 0 4px",
+    margin: '16px 0 4px'
 };
 
 const formItemInput = {
-    padding: "8px 12px",
+    padding: '8px 12px'
 };
 
 export default function LoginForm({ onChange, children }) {
     const [form] = Form.useForm();
     const initialValues = {
-        username: "admin@localhost",
-        password: "SamplePassword123!@",
+        username: 'admin@localhost',
+        password: 'SamplePassword123!@#'
     };
 
     const formAttrs = {
         username: {
-            name: "username",
+            name: 'username',
             // label: t`Username`,
-            rules: [FormUtil.ruleRequired()],
+            rules: [FormUtil.ruleRequired()]
         },
         password: {
-            name: "password",
+            name: 'password',
             // label: t`Password`,
-            rules: [FormUtil.ruleRequired()],
-        },
+            rules: [FormUtil.ruleRequired()]
+        }
     };
 
     return (
@@ -63,15 +63,15 @@ export default function LoginForm({ onChange, children }) {
                 />
             </Form.Item>
 
-            <p style={{ textAlign: "right" }}>{children}</p>
+            <p style={{ textAlign: 'right' }}>{children}</p>
             <Button
                 type="primary"
                 htmlType="submit"
                 style={{
-                    width: "100%",
+                    width: '100%'
                 }}
             >
-                {"Đăng nhập"}
+                {'Đăng nhập'}
             </Button>
         </Form>
     );

@@ -24,20 +24,18 @@ export default function TreeCheckInput({
     allowClear = false,
     disabled = false,
     onChange,
+    ...rest
 }) {
     function optionsWithBlankValue(options) {
         const isMulti = mode === "multiple";
         if (isMulti || !blankLabel) return options;
 
-        const blankOption = {
-            value: "",
-            label: `Chọn ${blankLabel.toLowerCase()}`,
-        };
-        return [blankOption, ...options];
+        return options;
     }
 
     return (
         <Select
+            {...rest}
             style={{ width: block ? "100%" : "auto" }}
             showSearch
             allowClear={allowClear}

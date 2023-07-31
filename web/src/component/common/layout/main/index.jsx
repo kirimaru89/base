@@ -1,13 +1,17 @@
-import * as React from "react";
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation, Outlet } from "react-router-dom";
-import { t } from "ttag";
-import { Layout, Menu, Row, Col, Breadcrumb, theme, Typography } from "antd";
+import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
+import { t } from 'ttag';
+import { Layout, Menu, Row, Col, Breadcrumb, theme, Typography } from 'antd';
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
     TeamOutlined,
     FolderOpenOutlined,
+    HeartOutlined,
+    ApartmentOutlined,
+    HomeOutlined,
+    CrownOutlined
 } from "@ant-design/icons";
 import PemUtil from "service/helper/pem_util";
 import NavUtil from "service/helper/nav_util";
@@ -25,7 +29,7 @@ export default function MainLayout() {
     const [breadcrumb, setBreadcrumb] = useState([]);
     useEffect(() => {
         let item = getMenuItems().find((x) => x.key == location.pathname);
-        setBreadcrumb([{ title: "Trang chủ" }, { title: item?.label }]);
+        setBreadcrumb([{ title: 'Trang chủ' }, { title: item?.label }]);
     }, [location]);
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
@@ -47,31 +51,69 @@ export default function MainLayout() {
 
     function getMenuItems() {
         const result = [];
-        if (PemUtil.canView(["unionmember", "group"])) {
+        result.push({
+            label: "Trang chủ",
+            key: "/home",
+            icon: <HomeOutlined />,
+        });
+
+        if (PemUtil.canView(["member"])) {
             result.push({
-                label: "Quản lý đoàn viên",
-                key: "/members",
-                icon: <TeamOutlined />,
-            });
-        }
-        if (PemUtil.canView(["news", "group"])) {
-            result.push({
-                label: "Quản lý tin tức",
-                key: "/news",
-                icon: <FolderOpenOutlined />,
+                label: 'Quản lý đoàn viên',
+                key: '/account/member',
+                icon: <TeamOutlined />
             });
         }
 
-        result.push({
-            label: "Quản lý tổ chức",
-            key: "/organizations",
-            icon: <FolderOpenOutlined />,
-        });
+        if (PemUtil.canView(["news"])) {
+            result.push({
+                label: 'Quản lý tin tức',
+                key: '/article/news',
+                icon: <FolderOpenOutlined />
+            });
+        }
+
+        if (PemUtil.canView(["campaign"])) {
+            result.push({
+                label: "Quản lý đợt tình nguyện",
+                key: "/activity/campaign",
+                icon: <HeartOutlined />,
+            });
+        }
+
+        if (PemUtil.canView(["organization"])) {
+            result.push({
+                label: "Quản lý tổ chức/cơ sở đoàn viên",
+                key: "/dropdown/organization",
+                icon: <ApartmentOutlined />,
+            });
+        }
+
+        if (PemUtil.canView(['contest'])) {
+            result.push({
+                label: 'Quản lý cuộc thi',
+                key: '/activity/contest',
+                icon: <CrownOutlined />
+            });
+            result.push({
+                label: 'Quản lý cuộc thi - NEW',
+                key: '/activity/contest-new',
+                icon: <CrownOutlined />
+            });
+        }
+        
+        if (PemUtil.canView(['exam'])) {
+            result.push({
+                label: 'Quản lý bài thi',
+                key: '/activity/exam',
+                icon: <CrownOutlined />
+            });
+        }
 
         return result;
     }
     const {
-        token: { colorBgContainer },
+        token: { colorBgContainer }
     } = theme.useToken();
     return (
         <Layout className={styles.wrapperContainer}>
@@ -86,37 +128,34 @@ export default function MainLayout() {
                 }}
                 width={243}
             >
-                <div className={styles["box-logo"]}>
+                <div className={styles['box-logo']}>
                     <img src={logo}></img>
-                    <Title level={5}>{collapsed || "Tuổi trẻ Đà Nẵng"}</Title>
+                    <Title level={5}>{collapsed || 'Tuổi trẻ Đà Nẵng'}</Title>
                 </div>
                 <Menu
                     className="sidebar-nav"
-                    defaultSelectedKeys={[
-                        processSelectedKey(location.pathname),
-                    ]}
+                    defaultSelectedKeys={[processSelectedKey(location.pathname)]}
                     theme="dark"
                     mode="inline"
                     items={getMenuItems()}
+                    selectedKeys={location.pathname}
                     onSelect={({ key }) => navigateTo(key)}
                 />
             </Sider>
             <Layout className="site-layout">
                 <Header
                     style={{
-                        padding: "0 1.5rem",
-                        background: colorBgContainer,
+                        padding: '0 1.5rem',
+                        background: colorBgContainer
                     }}
                 >
                     <Row>
                         <Col span={12}>
                             {React.createElement(
-                                collapsed
-                                    ? MenuUnfoldOutlined
-                                    : MenuFoldOutlined,
+                                collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                                 {
-                                    className: "trigger",
-                                    onClick: toggle,
+                                    className: 'trigger',
+                                    onClick: toggle
                                 }
                             )}
                         </Col>
@@ -127,12 +166,12 @@ export default function MainLayout() {
                 </Header>
                 <Content
                     style={{
-                        margin: "0 1rem",
+                        margin: '0 1rem'
                     }}
                 >
                     <Breadcrumb
                         style={{
-                            margin: "0.5rem 0",
+                            margin: '0.5rem 0'
                         }}
                         items={breadcrumb}
                     />

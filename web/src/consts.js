@@ -20,3 +20,18 @@ export const STATUS_ARRAY = [
         value: 0,
     },
 ];
+
+export const CAMPAIGN_STATUS_ARRAY = [
+    {
+        label: "Đang diễn ra",
+        value: 1,
+    },
+    {
+        label: "Sắp diễn ra",
+        value: 2,
+    },
+    {
+        label: "Đã kết thúc",
+        value: 3,
+    },
+];

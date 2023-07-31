@@ -16,7 +16,7 @@ export default function ProfileSummary(data) {
                     <td span={6}>
                         <strong>{t`Phone number`}</strong>
                     </td>
-                    <td span={18}>{data.phone_number}</td>
+                    <td span={18}>{data.mobile}</td>
                 </tr>
                 <tr>
                     <td span={6}>

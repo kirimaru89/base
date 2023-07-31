@@ -7,23 +7,18 @@ urlpatterns = (
     path("noti/", include("module.noti.urls", namespace="noti")),
     path("account/", include("module.account.urls", namespace="account")),
     path(
-        "configuration/",
+        "conf/",
         include("module.conf.urls", namespace="configuration"),
     ),
     path(
         "dropdown/",
         include("module.dropdown.urls", namespace="dropdown"),
     ),
+    path("article/", include("module.article.urls", namespace="article")),
+    path("management/", include("module.management.urls", namespace="management")),
     path(
-        "post/",
-        include("module.post.urls", namespace="post"),
+        "activity/",
+        include("module.activity.urls", namespace="activity"),
     ),
-    path(
-        "files/",
-        include("module.files.urls", namespace="files"),
-    ),
-    path(
-        "organization/",
-        include("module.organization.urls", namespace="organization"),
-    ),
+    path("report/", include("module.report.urls", namespace="report")),
 )

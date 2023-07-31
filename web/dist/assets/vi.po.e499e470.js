@@ -1,0 +1,14 @@
+const s="utf-8",e={"Project-Id-Version":"","POT-Creation-Date":"","PO-Revision-Date":"","Last-Translator":"","Language-Team":"",Language:"vi","MIME-Version":"1.0","Content-Type":"text/plain; charset=utf-8","Content-Transfer-Encoding":"8bit","Plural-Forms":"nplurals = 1; plural = 0;","mime-version":"1.0","x-generator":"Poedit 3.0.1","X-Generator":"Poedit 3.0.1"},n={"":{"":{msgid:"",msgstr:[`Project-Id-Version: 
+POT-Creation-Date: 
+PO-Revision-Date: 
+Last-Translator: 
+Language-Team: 
+Language: vi
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Plural-Forms: nplurals = 1; plural = 0;
+mime-version: 1.0
+x-generator: Poedit 3.0.1
+X-Generator: Poedit 3.0.1
+`]},Config:{msgid:"Config",msgstr:["C\u1EA5u h\xECnh"]},Staff:{msgid:"Staff",msgstr:["Nh\xE2n vi\xEAn"]},Group:{msgid:"Group",msgstr:["Nh\xF3m"]},Fullname:{msgid:"Fullname",msgstr:["H\u1ECD v\xE0 t\xEAn"]},Email:{msgid:"Email",msgstr:["Email"]},"Phone number":{msgid:"Phone number",msgstr:["S\u1ED1 \u0111i\u1EC7n tho\u1EA1i"]},Active:{msgid:"Active",msgstr:["K\xEDch ho\u1EA1t"]},Groups:{msgid:"Groups",msgstr:["Nh\xF3m"]},"Update profile":{msgid:"Update profile",msgstr:["C\u1EADp nh\u1EADt h\u1ED3 s\u01A1"]},"Change password":{msgid:"Change password",msgstr:["\u0110\u1ED5i m\u1EADt kh\u1EA9u"]},"Reset password":{msgid:"Reset password",msgstr:["Kh\xF4i ph\u1EE5c m\u1EADt kh\u1EA9u"]},Cancel:{msgid:"Cancel",msgstr:["Tho\xE1t"]},"Old password":{msgid:"Old password",msgstr:["M\u1EADt kh\u1EA9u c\u0169"]},"New password":{msgid:"New password",msgstr:["M\u1EADt kh\u1EA9u m\u1EDBi"]},"Confirm new password":{msgid:"Confirm new password",msgstr:["X\xE1c nh\u1EADn m\u1EADt kh\u1EA9u m\u1EDBi"]},"Config name":{msgid:"Config name",msgstr:["T\xEAn c\u1EA5u h\xECnh"]},"Config value":{msgid:"Config value",msgstr:["Gi\xE1 tr\u1ECB c\u1EA5u h\xECnh"]},"Add new":{msgid:"Add new",msgstr:["Th\xEAm m\u1EDBi"]},Save:{msgid:"Save",msgstr:["L\u01B0u"]},Update:{msgid:"Update",msgstr:["C\u1EADp nh\u1EADt"]},"Do you want to remote this ${ name }?":{msgid:"Do you want to remote this ${ name }?",msgstr:["B\u1EA1n c\xF3 mu\u1ED1n x\xF3a ${ name } n\xE0y?"]},"Do you want to remote these ${ name }?":{msgid:"Do you want to remote these ${ name }?",msgstr:["B\u1EA1n c\xF3 mu\u1ED1n x\xF3a nh\u1EEFng ${ name } n\xE0y?"]},"Remove selected":{msgid:"Remove selected",msgstr:["X\xF3a ch\u1ECDn"]},Lastname:{msgid:"Lastname",msgstr:["H\u1ECD v\xE0 t\xEAn \u0111\u1EC7m"]},Firstname:{msgid:"Firstname",msgstr:["T\xEAn"]},"Group name":{msgid:"Group name",msgstr:["T\xEAn nh\xF3m"]},Permissions:{msgid:"Permissions",msgstr:["Quy\u1EC1n"]},Search:{msgid:"Search",msgstr:["T\xECm ki\u1EBFm"]},Remove:{msgid:"Remove",msgstr:["X\xF3a"]},Member:{msgid:"Member",msgstr:["Th\xE0nh vi\xEAn"]},Home:{msgid:"Home",msgstr:["Trang ch\u1EE7"]}}},t={charset:s,headers:e,translations:n};export{s as charset,t as default,e as headers,n as translations};

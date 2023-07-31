@@ -20,8 +20,6 @@ from django.utils.log import DEFAULT_LOGGING
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/app/media'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -54,28 +52,30 @@ REQUIRED_APPS = [
 PROJECT_APPS = [
     "module.custom_cmd",
     "module.noti.verif",
+    "module.noti.message",
+    "module.noti.device",
     "module.account.user",
     "module.account.staff",
     "module.account.role",
-    "module.account.union_member",
+    "module.account.member",
     "module.conf.variable",
     "module.dropdown.recipient",
-    "module.dropdown.newsType",
-    "module.dropdown.newsCategory",
-    "module.post.news",
-    "module.files.media",
     "module.dropdown.position",
-    "module.dropdown.ethnic",
-    "module.dropdown.religion",
     "module.dropdown.occupation",
-    "module.dropdown.education_level",
-    "module.dropdown.qualification",
-    "module.dropdown.it_level",
-    "module.dropdown.foreign_language_level",
-    "module.dropdown.political_theory_level",
-    "module.dropdown.organization_level",
-    "module.dropdown.organization_type",
-    "module.organization",
+    "module.dropdown.organization",
+    "module.article.news",
+    "module.article.category",
+    "module.activity.contest",
+    "module.activity.exam",
+    "module.activity.exam_question",
+    "module.activity.exam_answer",
+    "module.activity.question",
+    "module.activity.answer",
+    "module.activity.exam_result",
+    "module.activity.campaign",
+    "module.activity.campaign_attachment",
+    "module.management.file",
+    "module.report",
 ]
 
 INSTALLED_APPS = REQUIRED_APPS + PROJECT_APPS
@@ -292,3 +292,9 @@ CLIENT_URL = "/public/clients/front/"
 IMAGE_MAX_WIDTH = 1200
 
 SAMPLE_PASSWORD = os.environ.get("SAMPLE_PASSWORD")
+
+# AWS
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", "")
+AWS_BUCKET = os.environ.get("AWS_BUCKET", "")
+AWS_REGION = os.environ.get("AWS_REGION", "")

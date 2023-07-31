@@ -97,9 +97,9 @@ export default function StaffTable() {
             dataIndex: "email",
         },
         {
-            key: "phone_number",
-            title: labels.phone_number,
-            dataIndex: "phone_number",
+            key: "mobile",
+            title: labels.mobile,
+            dataIndex: "mobile",
         },
         {
             key: "action",

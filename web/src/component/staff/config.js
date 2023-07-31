@@ -26,7 +26,7 @@ export const emptyRecord = {
     last_name: "",
     first_name: "",
     email: "",
-    phone_number: "",
+    mobile: "",
     groups: [],
 };
 
@@ -35,7 +35,7 @@ export const labels = {
     last_name: t`Lastname`,
     first_name: t`Firstname`,
     email: t`Email`,
-    phone_number: t`Phone number`,
+    mobile: t`Phone number`,
     is_active: t`Active`,
     groups: t`Groups`,
 };

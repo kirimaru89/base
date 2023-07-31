@@ -75,7 +75,7 @@ server {
         proxy_set_header Connection "upgrade";
     }
 
-    location /media/ {
-        alias /app/media/;
+    location /file/ {
+        alias /app/file/;
     }
 }

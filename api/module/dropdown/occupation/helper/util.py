@@ -1,0 +1,2 @@
+class OccupationUtil:
+    pass

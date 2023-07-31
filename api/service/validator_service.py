@@ -3,11 +3,13 @@ from service.password_service import PasswordService
 
 
 class ValidatorService:
+    @staticmethod
     def password_validator(value):
         # errors = PasswordService.password_validate(value)
         # if errors:
         #     raise ValidationError(errors, code="invalid")
         pass
 
-    def phone_number_validator(value):
+    @staticmethod
+    def mobile_validator(value):
         pass

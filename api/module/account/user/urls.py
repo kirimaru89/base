@@ -7,17 +7,17 @@ from .views.auth import (
     LogoutView,
     ResetPasswordView,
     ChangePasswordView,
-    SignupView,
+    ForgotPasswordView,
 )
 
 
 app_name = os.getcwd().split(os.sep)[-1]
 urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
-    path("signup/", SignupView.as_view(), name="login"),
     path("refresh-token/", RefreshTokenView.as_view(), name="refresh_token"),
     path("refresh-check/", RefreshCheckView.as_view(), name="refresh_check"),
     path("logout/", LogoutView.as_view(), name="logout"),
     path("reset-password/", ResetPasswordView.as_view(), name="reset_password"),
     path("change-password/", ChangePasswordView.as_view(), name="change_password"),
+    path("forgot-password/", ForgotPasswordView.as_view(), name="change_password"),
 ]

@@ -1,3 +1,5 @@
+import time
+
 import pytz
 import contextlib
 from datetime import date, datetime, timedelta
@@ -36,6 +38,10 @@ class DateService:
     def today(aware=False) -> date:
         result = date.today()
         return DateService.make_aware(result) if aware else result
+
+    @staticmethod
+    def epoch():
+        return time.time_ns()
 
     @staticmethod
     def shift_from_now(unit: str, value: int, aware=False):

@@ -1,11 +1,11 @@
-import { t } from "ttag";
-import RequestUtil from "service/helper/request_util";
+import { t } from 'ttag';
+import RequestUtil from 'service/helper/request_util';
 
 const urlMap = {
     base: {
-        prefix: "configuration/variable",
+        prefix: 'conf/variable',
         endpoints: {
-            crud: ""
+            crud: ''
         }
     }
 };
@@ -14,6 +14,7 @@ export const urls = RequestUtil.prefixMapValues(urlMap.base);
 const headingTxt = t`Config`;
 const name = headingTxt.toLowerCase();
 export const messages = {
+    name,
     heading: headingTxt,
     deleteOne: t`Do you want to remote this ${name}?`,
     deleteMultiple: t`Do you want to remote these ${name}?`

@@ -42,9 +42,9 @@ export default function StaffForm({ data, onChange }) {
             label: labels.email,
             rules: [FormUtil.ruleRequired()]
         },
-        phone_number: {
-            name: "phone_number",
-            label: labels.phone_number
+        mobile: {
+            name: "mobile",
+            label: labels.mobile
         },
         last_name: {
             name: "last_name",
@@ -86,7 +86,7 @@ export default function StaffForm({ data, onChange }) {
             <Form.Item {...formAttrs.email}>
                 <Input ref={inputRef}/>
             </Form.Item>
-            <Form.Item {...formAttrs.phone_number}>
+            <Form.Item {...formAttrs.mobile}>
                 <Input />
             </Form.Item>
             <Form.Item {...formAttrs.last_name}>

@@ -38,7 +38,7 @@ class VerifUtil:
     def send_noti_after_creating_email(subject: str, to_email: str):
         body = render_to_string(
             "emails/noti_after_creating.html",
-            {"login_url": f"{RequestService.get_base_url()}#/login"},
+            {"login_url": f"{RequestService.get_base_url()}login"},
         )
 
         EmailService.send_email_async(subject, body, to_email)

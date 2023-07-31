@@ -1,6 +1,5 @@
 import contextlib
 from django.contrib.auth.hashers import make_password, check_password
-from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 
@@ -9,14 +8,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from module.account.user.helper.sr import SignupSr
-from service.format_service import FormatService
 from service.string_service import StringService
 from service.request_service import RequestService
 from service.token_service import TokenService
 
 from module.noti.verif.helper.util import VerifUtil
 from module.account.user.helper.util import UserUtil
+from module.account.user.helper.sr import UserDetailSr
 
 User = get_user_model()
 
@@ -28,7 +26,7 @@ class LoginView(TokenObtainPairView):
         error_message = _("Incorrect login information. Please try again")
         try:
             response = super().post(request, *args, **kwargs)
-        except Exception:  # skipcq: Catch every error when login
+        except Exception as e:  # skipcq: Catch every error when login
             return RequestService.err(error_message)
         if response.status_code not in range(200, 300):
             return RequestService.err(error_message)
@@ -36,37 +34,11 @@ class LoginView(TokenObtainPairView):
         token = response.data.get("access")
         user = TokenService.get_user_from_token(token)
         response = RequestService.jwt_response_handler(token, refresh_token, user)
+        
+        if hasattr(user, "member"):
+            response["user"] = UserDetailSr(user).data
+            
         return RequestService.res(response)
-
-
-class SignupView(APIView):
-    permission_classes = (AllowAny,)
-
-    @transaction.atomic
-    def post(self, request, *args, **kwargs):
-        data = request.data
-        email = data.get("email", "").lower()
-        data["email"] = email
-        serializer = SignupSr(data=data)
-        serializer.is_valid(raise_exception=True)
-
-        phone_number = request.data.get("phone_number", "")
-        phone_number = FormatService.phone_to_canonical_format(phone_number)
-        if not FormatService.check_valid_phone_number(phone_number):
-            return RequestService.err({"detail": _("Invalid phone number format")})
-
-        is_duplicate_username = UserUtil.is_duplicate_username(email)
-        if is_duplicate_username:
-            return RequestService.err(is_duplicate_username)
-
-        raw_data = request.data
-        raw_data["language"] = RequestService.get_lang_code(request)
-        # user_sr, serializer = CustomerUtils.create(raw_data)
-        # serializer.data.update({"user": user_sr.data})
-        # data = serializer.data
-        # data["token"] = CustomerUtils.get_token(data["user_data"]["id"])
-        # data["username"] = user_sr.data.get("username", "").lower()
-        return RequestService.res(data)
 
 
 class RefreshTokenView(APIView):
@@ -181,5 +153,19 @@ class ChangePasswordView(APIView):
 
         user.password = make_password(password)
         user.save()
+
+        return RequestService.res({})
+
+
+class ForgotPasswordView(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        params = self.request.data
+        email = params.get("email", "").lower()
+        lang = RequestService.get_lang_code(request)
+
+        if not UserUtil.forgot_password(email, lang):
+            return RequestService.err(_("Can not reset password"))
 
         return RequestService.res({})

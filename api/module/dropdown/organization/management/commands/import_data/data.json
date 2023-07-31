@@ -1,0 +1,87 @@
+[
+    {
+        "title": "Tỉnh/Thành phố Thành phố Đà Nẵng",
+        "children": [
+            {
+                "title": "Huyện/hoặc tương đương Đoàn khối Các cơ quan thành phố ĐN",
+                "children": [
+                    {
+                        "title": "Đoàn cơ sở Bệnh viện C Đà Nẵng",
+                        "children": [
+                            {"title": "Chi đoàn Lê Thị Hồng Gấm"},
+                            {"title": "Chi đoàn Lê Đình Chinh"},
+                            {"title": "Chi đoàn Nguyễn Thái Bình"},
+                            {"title": "Chi đoàn Nguyễn Văn Thạc"},
+                            {"title": "Chi đoàn Nguyễn Văn Trỗi"},
+                            {"title": "Chi đoàn Đặng Thuỳ Trâm"},
+                            {"title": "Chi đoàn Lê Hồng Phong"},
+                            {"title": "Chi đoàn Võ Thị Sáu"}
+                        ]
+                    },
+                    {
+                        "title": "Đoàn cơ sở Bệnh viện Đà Nẵng",
+                        "children": [
+                            {"title": "Chi đoàn Cận lâm sàng"},
+                            {"title": "Chi đoàn HSTC-CĐ"},
+                            {"title": "Chi đoàn Khám bệnh"},
+                            {"title": "Chi đoàn Khoa Nội"},
+                            {"title": "Chi đoàn GMHS-LCK"},
+                            {"title": "Chi đoàn Ngoại"},
+                            {"title": "Chi đoàn TCKT-Dược"},
+                            {"title": "Chi đoàn Văn phòng - Vật tư - Dinh dưỡng"},
+                            {"title": "Chi đoàn YHNĐ-TNT-UB-KSNK"}
+                        ]
+                    },
+                    {
+                        "title": "Đoàn cơ sở Bệnh viện Ung Bướu Đà Nẵng",
+                        "children": [
+                            {"title": "Chi đoàn Liên khoa 1"},
+                            {"title": "Chi đoàn Liên khoa 2"},
+                            {"title": "Chi đoàn Liên khoa 2B"},
+                            {"title": "Chi đoàn Liên khoa 2C"},
+                            {"title": "Chi đoàn Liên khoa 3"},
+                            {"title": "Chi đoàn Liên khoa 3B"},
+                            {"title": "Chi đoàn Liên khoa 4"},
+                            {"title": "Chi đoàn Văn phòng 1"},
+                            {"title": "Chi đoàn Văn phòng 2"}
+                        ]
+                    },
+                    {
+                        "title": "Đoàn cơ sở Cục hải quan TPĐN",
+                        "children": [
+                            {"title": "Chi đoàn I"},
+                            {"title": "Chi đoàn II"},
+                            {"title": "Chi đoàn III"}
+                        ]
+                    },
+                    {
+                        "title": "Đoàn cơ sở Sở Du lịch TPĐN",
+                        "children": [
+                            {"title": "Chi đoàn Cơ quan Văn phòng Sở Du lịch"},
+                            {"title": "Chi đoàn Trung tâm Xúc tiến du lịch Đà Nẵng"},
+                            {
+                                "title": "Chi đoàn BQL bán đảo Sơn Trà và các bãi biển du lịch ĐN"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Đoàn cơ sở Sở Giao thông Vận tải TPĐN",
+                        "children": [
+                            {"title": "Chi đoàn Cơ quan Văn phòng Sở GTVT"},
+                            {"title": "Chi đoàn Trung tâm đăng kiểm xe cơ giới"},
+                            {"title": "Chi đoàn Công ty Cổ phần Quản lý cầu đường"},
+                            {
+                                "title": "Chi đoàn Trung tâm điều hành đèn tín hiệu giao thông và vận tải công cộng"
+                            },
+                            {"title": "Chi đoàn Trung tâm quản lý hạ tầng giao thông"},
+                            {
+                                "title": "Chi đoàn Trường trung cấp nghề giao thông công chính"
+                            },
+                            {"title": "Chi đoàn Thanh tra Sở Giao thông vận tải"}
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

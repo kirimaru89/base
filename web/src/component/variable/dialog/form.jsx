@@ -1,14 +1,15 @@
-import * as React from "react";
-import { Form, Input } from "antd";
-import Util from "service/helper/util";
-import FormUtil from "service/helper/form_util";
-import { urls, labels } from "../config";
+import * as React from 'react';
+import { useRef, useEffect } from 'react';
+import { Form, Input } from 'antd';
+import Util from 'service/helper/util';
+import FormUtil from 'service/helper/form_util';
+import { urls, labels } from '../config';
 
-const formName = "VariableForm";
+const formName = 'VariableForm';
 const emptyRecord = {
     id: 0,
-    uid: "",
-    value: ""
+    uid: '',
+    value: ''
 };
 
 /**
@@ -26,24 +27,29 @@ const emptyRecord = {
  * @param {FormCallback} props.onChange
  */
 export default function VariableForm({ data, onChange }) {
+    const inputRef = useRef(null);
     const [form] = Form.useForm();
     const initialValues = Util.isEmpty(data) ? emptyRecord : data;
     const id = initialValues.id;
 
     const endPoint = id ? `${urls.crud}${id}` : urls.crud;
-    const method = id ? "put" : "post";
+    const method = id ? 'put' : 'post';
 
     const formAttrs = {
         uid: {
-            name: "uid",
+            name: 'uid',
             label: labels.uid,
             rules: [FormUtil.ruleRequired()]
         },
         value: {
-            name: "value",
+            name: 'value',
             label: labels.value
         }
     };
+
+    useEffect(() => {
+        inputRef.current.focus({ cursor: 'end' });
+    }, []);
 
     return (
         <Form
@@ -59,7 +65,7 @@ export default function VariableForm({ data, onChange }) {
             }
         >
             <Form.Item {...formAttrs.uid}>
-                <Input autoFocus />
+                <Input ref={inputRef} />
             </Form.Item>
 
             <Form.Item {...formAttrs.value}>

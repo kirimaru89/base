@@ -10,8 +10,8 @@ export default function UpdateProfileForm({ data, onChange }) {
     const [form] = Form.useForm();
 
     const formAttrs = {
-        phone_number: {
-            name: "phone_number",
+        mobile: {
+            name: "mobile",
             label: t`Phone number`,
             rules: [FormUtil.ruleRequired()]
         }
@@ -30,7 +30,7 @@ export default function UpdateProfileForm({ data, onChange }) {
                     .catch(FormUtil.setFormErrors(form))
             }
         >
-            <Form.Item {...formAttrs.phone_number}>
+            <Form.Item {...formAttrs.mobile}>
                 <Input autoFocus />
             </Form.Item>
         </Form>

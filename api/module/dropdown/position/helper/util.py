@@ -1,0 +1,2 @@
+class PositionUtil:
+    pass

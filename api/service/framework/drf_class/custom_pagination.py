@@ -9,6 +9,13 @@ HTTPS_PROTOCOL = "https://"
 
 
 class CustomPagination(pagination.PageNumberPagination):
+    def get_page_size(self, request):
+        try:
+            self.page_size = int(request.query_params.get("page_size", 15))
+        except Exception:
+            self.page_size = 15
+        return self.page_size
+
     def get_paginated_response(self, data):
         next_link = self.get_next_link()
         previous_link = self.get_previous_link()

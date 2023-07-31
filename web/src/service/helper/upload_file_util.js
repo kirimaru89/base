@@ -30,7 +30,7 @@ export default class UploadFileUtil {
         const formData = { image: fileToUpload, path: folder };
         try {
             const res = await RequestUtil.apiCall(
-                "files/media/upload-image",
+                "management/file/upload",
                 formData,
                 "post"
             );

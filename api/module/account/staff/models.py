@@ -10,10 +10,8 @@ from service.framework.model.timestamped_model import TimeStampedModel
 class Staff(TimeStampedModel):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    @property
-    def full_name(self) -> str:
-        return self.user.full_name
-
+    full_name = models.CharField(max_length=255, null=False, default="")
+    
     @property
     def email(self) -> str:
         return self.user.email
@@ -31,5 +29,4 @@ class Staff(TimeStampedModel):
 
     class Meta:
         db_table = "staffs"
-        app_label = "staff"
         ordering = ["-user"]

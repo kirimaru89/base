@@ -13,7 +13,7 @@ import UpdateProfile from "./update_profile";
 export const emptyProfile = {
     id: 0,
     email: "",
-    phone_number: "",
+    mobile: "",
     first_name: "",
     last_name: "",
     title_label: "",
